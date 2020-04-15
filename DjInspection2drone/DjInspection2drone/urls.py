@@ -1,4 +1,4 @@
-"""webpersonal URL Configuration
+"""DjInspection2drone URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -15,12 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core import views
 
 urlpatterns = [
-    path('', views.home, name="home"),
-    path('about-me/', views.about, name="about"),
-    path('portfolio/', views.portfolio, name="portfolio"),
-    path('contact/', views.contact, name="contact"),
     path('admin/', admin.site.urls),
 ]
