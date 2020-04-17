@@ -1,0 +1,4 @@
+#233142 - azul oscuro
+#455d7a - azul claro
+#f95959 - rojo claro
+#e3e3e3 - gris
