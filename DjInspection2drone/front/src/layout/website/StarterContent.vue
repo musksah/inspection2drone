@@ -4,45 +4,45 @@
       <div class="container">
         <div class="row">
           <div class="col-md-4 col-sm-6 feature text-center">
-            <span class="icon icon-tools"></span>
+            <span class="icon icon-camera"></span>
             <div class="feature-content">
-              <h5>Easily Customised</h5>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper nulla non metus auctor fringilla.</p>
+              <h5>Captura de fotos 4k</h5>
+              <p>Nuestros drones pueden tomar fotos de alta calidad y resolución en zonas de difícil acceso de cualquier obra de construcción.</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 feature text-center">
             <span class="icon icon-desktop"></span>
             <div class="feature-content">
-              <h5>Responsive Ready</h5>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper nulla non metus auctor fringilla.</p>
+              <h5>Galería de fotografías</h5>
+              <p>Gracias a nuestro incríble sistema de administración puedes acceder ver tus fotografías en una galería cómoda para ti.</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 feature text-center">
             <span class="icon icon-lightbulb"></span>
             <div class="feature-content">
-              <h5>Modern Design</h5>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper nulla non metus auctor fringilla.</p>
+              <h5>Pilotos Capacitados</h5>
+              <p>Para realizar inspecciones de obra de calidad, contamos con pilotos de drones certificados y con una gran experiencia de vuelo.</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 feature text-center">
             <span class="icon icon-genius"></span>
             <div class="feature-content">
-              <h5>Clean Code</h5>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper nulla non metus auctor fringilla.</p>
+              <h5>Inteligencia Artificial</h5>
+              <p>Nuestros sistemas y drones usan la inteligencia artificial para ofrecerte un servicio con tecnología de punta.</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 feature text-center">
             <span class="icon icon-briefcase"></span>
             <div class="feature-content">
-              <h5>Ready to Ship</h5>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper nulla non metus auctor fringilla.</p>
+              <h5>Reportes amigables</h5>
+              <p>Pensando en tu comodidad nuestros sistema de reportes es de fácil uso y comprensión. Para que puedas tomar las mejores desiciones en el desarrollo de tus obras de construcción.</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 feature text-center">
             <span class="icon icon-download"></span>
             <div class="feature-content">
-              <h5>Download for Free</h5>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper nulla non metus auctor fringilla.</p>
+              <h5>Sistema Administrativo</h5>
+              <p>Contamos con un sistema robusto, confiable, seguro y con las mejores prácticas para que te ayude a administrar tus inspecciones de obras de construcción.</p>
             </div>
           </div>
         </div>
