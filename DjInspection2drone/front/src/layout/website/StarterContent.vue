@@ -11,14 +11,14 @@
             </div>
           </div>
           <div class="col-md-4 col-sm-6 feature text-center">
-            <span class="icon icon-desktop"></span>
+            <span class="icon icon-pictures"></span>
             <div class="feature-content">
               <h5>Galería de fotografías</h5>
               <p>Gracias a nuestro incríble sistema de administración puedes acceder ver tus fotografías en una galería cómoda para ti.</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 feature text-center">
-            <span class="icon icon-lightbulb"></span>
+            <span class="icon icon-profile-male"></span>
             <div class="feature-content">
               <h5>Pilotos Capacitados</h5>
               <p>Para realizar inspecciones de obra de calidad, contamos con pilotos de drones certificados y con una gran experiencia de vuelo.</p>
@@ -32,14 +32,14 @@
             </div>
           </div>
           <div class="col-md-4 col-sm-6 feature text-center">
-            <span class="icon icon-briefcase"></span>
+            <span class="icon icon-presentation"></span>
             <div class="feature-content">
               <h5>Reportes amigables</h5>
               <p>Pensando en tu comodidad nuestros sistema de reportes es de fácil uso y comprensión. Para que puedas tomar las mejores desiciones en el desarrollo de tus obras de construcción.</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 feature text-center">
-            <span class="icon icon-download"></span>
+            <span class="icon icon-desktop"></span>
             <div class="feature-content">
               <h5>Sistema Administrativo</h5>
               <p>Contamos con un sistema robusto, confiable, seguro y con las mejores prácticas para que te ayude a administrar tus inspecciones de obras de construcción.</p>
@@ -95,7 +95,7 @@
 </template>
 <script>
 export default {
-  name: "starter-content"
+  name: "starter-content",
 };
 </script>
 <style>

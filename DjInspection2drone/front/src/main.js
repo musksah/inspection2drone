@@ -19,8 +19,14 @@ import router from "./router/index";
 
 import PaperDashboard from "./plugins/paperDashboard";
 import "vue-notifyjs/themes/default.css";
+import { BootstrapVue, IconsPlugin, CarouselPlugin } from 'bootstrap-vue'
 
 Vue.use(PaperDashboard);
+// Install BootstrapVue
+Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin)
+Vue.use(CarouselPlugin)
 
 /* eslint-disable no-new */
 new Vue({
