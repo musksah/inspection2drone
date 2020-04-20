@@ -77,10 +77,10 @@
         </li>
         <li class="nav-item d-none d-lg-block ml-lg-4">
           <router-link class="btn btn-neutral btn-icon" to="/login">
-            <span class="btn-inner--icon"  style="color:#212529;">
+            <span class="btn-inner--icon"  style="color:#66615B;">
               <i class="fa fa-sign-in mr-2" aria-hidden="true"></i>
             </span>
-            <span class="nav-link-inner--text gray" style="color:#212529;">Ingresar</span>
+            <span class="nav-link-inner--text gray" style="color:#66615B;">Ingresar</span>
           </router-link>
         </li>
       </ul>

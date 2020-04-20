@@ -22,7 +22,10 @@ const routes = [
       {
         path: "dashboard",
         name: "dashboard",
-        component: Dashboard
+        component: Dashboard,
+        beforeEnter: (to, from, next) => {
+          // alert("entrando")
+        }
       },
       {
         path: "stats",

@@ -11,10 +11,12 @@
     "dev": "npm run serve"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.11.0",
     "chartist": "^0.11.0",
     "es6-promise": "^4.2.4",
+    "sweetalert": "^2.1.2",
     "vue": "^2.6.11",
     "vue-clickaway": "^2.1.0",
     "vue-notifyjs": "^0.3.0",
