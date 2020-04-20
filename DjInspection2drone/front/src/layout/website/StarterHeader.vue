@@ -1,6 +1,6 @@
 <template>
   <header class="header-global">
-    <base-nav class="navbar-main" fixed="top" type expand style="background-color: #233142;"> 
+    <base-nav class="navbar-main" type expand style="background-color: #353E76;"> 
       <router-link slot="brand" class="navbar-brand mr-lg-5" to="/">
         <img src="@/assets/img/logo_mini.png" />
       </router-link>
@@ -76,16 +76,12 @@
           </a>
         </li>
         <li class="nav-item d-none d-lg-block ml-lg-4">
-          <a
-            href="https://www.creative-tim.com/product/vue-argon-design-system"
-            target="_blank"
-            class="btn btn-neutral btn-icon"
-          >
-            <span class="btn-inner--icon">
+          <router-link class="btn btn-neutral btn-icon" to="/login">
+            <span class="btn-inner--icon"  style="color:#212529;">
               <i class="fa fa-sign-in mr-2" aria-hidden="true"></i>
             </span>
-            <span class="nav-link-inner--text">Ingresar</span>
-          </a>
+            <span class="nav-link-inner--text gray" style="color:#212529;">Ingresar</span>
+          </router-link>
         </li>
       </ul>
     </base-nav>

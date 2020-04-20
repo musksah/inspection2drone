@@ -11,6 +11,7 @@ import Maps from "@/pages/Maps.vue";
 import Typography from "@/pages/Typography.vue";
 import TableList from "@/pages/TableList.vue";
 import Home from "@/pages/Home.vue";
+import Login from "@/pages/Login.vue";
 
 const routes = [
   {
@@ -59,6 +60,11 @@ const routes = [
     path: "/home",
     name: "home",
     component: Home
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: Login
   },
   { path: "*", component: NotFound }
 ];

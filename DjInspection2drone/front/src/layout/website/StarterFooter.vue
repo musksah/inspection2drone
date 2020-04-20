@@ -3,8 +3,8 @@
     <div class="container">
       <div class="row row-grid align-items-center my-md">
         <div class="col-lg-6">
-          <h3 class="text-primary font-weight-light mb-2">Siguénos en nuestras redes sociales!</h3>
-          <h4 class="mb-0 font-weight-light">Let's get in touch on any of these platforms.</h4>
+          <h3 class="text-primary font-weight-light mb-2">Revisa nuestras últimas actualizaciones!</h3>
+          <h4 class="mb-0 font-weight-light">Puedes seguirnos en nuestras redes sociales y plataformas web.</h4>
         </div>
         <div class="col-lg-6 text-lg-center btn-wrapper">
           <a

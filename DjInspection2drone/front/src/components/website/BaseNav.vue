@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar"
+    <nav class="navbar fixed-top"
          :class="[
             {'navbar-expand-lg': expand},
             {[`navbar-${effect}`]: effect},
