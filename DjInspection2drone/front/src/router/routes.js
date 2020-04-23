@@ -12,6 +12,7 @@ import Typography from "@/pages/Typography.vue";
 import TableList from "@/pages/TableList.vue";
 import Home from "@/pages/Home.vue";
 import Login from "@/pages/Login.vue";
+import Register from "@/pages/Register.vue";
 
 const routes = [
   {
@@ -23,9 +24,6 @@ const routes = [
         path: "dashboard",
         name: "dashboard",
         component: Dashboard,
-        beforeEnter: (to, from, next) => {
-          // alert("entrando")
-        }
       },
       {
         path: "stats",
@@ -68,6 +66,11 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: Register
   },
   { path: "*", component: NotFound }
 ];

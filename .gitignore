@@ -1,0 +1,13 @@
+DjInspection2drone/front/node_modules/
+DjInspection2drone/front/.DS_Store
+
+DjInspection2drone/authr/__pycache__/*
+DjInspection2drone/DjInspection2drone/__pycache__/
+
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*

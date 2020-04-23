@@ -12,7 +12,8 @@
             {{stats.value}}
           </div>
           <div class="stats" slot="footer">
-            <i :class="stats.footerIcon"></i> {{stats.footerText}}
+            <i :class="stats.footerIcon"></i>
+            {{stats.footerText}}
           </div>
         </stats-card>
       </div>
@@ -20,12 +21,13 @@
 
     <!--Charts-->
     <div class="row">
-
       <div class="col-12">
-        <chart-card title="Users behavior"
-                    sub-title="24 Hours performance"
-                    :chart-data="usersChart.data"
-                    :chart-options="usersChart.options">
+        <chart-card
+          title="Users behavior"
+          sub-title="24 Hours performance"
+          :chart-data="usersChart.data"
+          :chart-options="usersChart.options"
+        >
           <span slot="footer">
             <i class="ti-reload"></i> Updated 3 minutes ago
           </span>
@@ -38,12 +40,15 @@
       </div>
 
       <div class="col-md-6 col-12">
-        <chart-card title="Email Statistics"
-                    sub-title="Last campaign performance"
-                    :chart-data="preferencesChart.data"
-                    chart-type="Pie">
+        <chart-card
+          title="Email Statistics"
+          sub-title="Last campaign performance"
+          :chart-data="preferencesChart.data"
+          chart-type="Pie"
+        >
           <span slot="footer">
-            <i class="ti-timer"></i> Campaign set 2 days ago</span>
+            <i class="ti-timer"></i> Campaign set 2 days ago
+          </span>
           <div slot="legend">
             <i class="fa fa-circle text-info"></i> Open
             <i class="fa fa-circle text-danger"></i> Bounce
@@ -53,10 +58,12 @@
       </div>
 
       <div class="col-md-6 col-12">
-        <chart-card title="2015 Sales"
-                    sub-title="All products including Taxes"
-                    :chart-data="activityChart.data"
-                    :chart-options="activityChart.options">
+        <chart-card
+          title="2015 Sales"
+          sub-title="All products including Taxes"
+          :chart-data="activityChart.data"
+          :chart-options="activityChart.options"
+        >
           <span slot="footer">
             <i class="ti-check"></i> Data information certified
           </span>
@@ -66,18 +73,27 @@
           </div>
         </chart-card>
       </div>
-
     </div>
-
   </div>
 </template>
 <script>
 import { StatsCard, ChartCard } from "@/components/index";
-import Chartist from 'chartist';
+import Chartist from "chartist";
 export default {
   components: {
     StatsCard,
     ChartCard
+  },
+  mounted() {
+    this.checkLoggedIn();
+  },
+  methods: {
+    checkLoggedIn() {
+      this.$session.start();
+      if (!this.$session.has("token")) {
+        this.$router.push("/login");
+      }
+    }
   },
   /**
    * Chart data used to render stats, charts. Should be replaced with server data

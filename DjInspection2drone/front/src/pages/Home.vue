@@ -19,6 +19,8 @@ export default {
       sliding: null
     };
   },
+  mounted() {
+  },
   components: {
     "m-header": StarterHeader,
     "m-carousel":Carousel,
@@ -31,6 +33,9 @@ export default {
     },
     onSlideEnd(slide) {
       this.sliding = false;
+    },
+    LoggedOut(){
+      this.$session.destroy();
     }
   }
 };

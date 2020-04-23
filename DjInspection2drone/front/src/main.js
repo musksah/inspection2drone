@@ -20,6 +20,10 @@ import router from "./router/index";
 import PaperDashboard from "./plugins/paperDashboard";
 import "vue-notifyjs/themes/default.css";
 import { BootstrapVue, IconsPlugin, CarouselPlugin } from 'bootstrap-vue'
+import  VueSession  from  'vue-session'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+// CommonJS
 
 Vue.use(PaperDashboard);
 // Install BootstrapVue
@@ -27,6 +31,9 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 Vue.use(CarouselPlugin)
+Vue.use(Vuetify)
+Vue.use(VueSession)
+// Vue.use(Swal)
 
 /* eslint-disable no-new */
 new Vue({

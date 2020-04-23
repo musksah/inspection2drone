@@ -9,10 +9,9 @@
         </ul>
       </nav>
       <div class="copyright d-flex flex-wrap">
-        &copy; Coded with
+        &copy; 2020 Modify
         <i class="fa fa-heart heart"></i> by
-        <a href="https://github.com/cristijora" target="_blank"> &nbsp; Cristi Jora.</a>&nbsp;
-        Designed by <a href="https://www.creative-tim.com/?ref=pdf-vuejs" target="_blank">&nbsp; Creative Tim.</a>
+        <a href="https://github.com/musksah" target="_blank"> &nbsp; musksah.</a>
       </div>
     </div>
   </footer>
