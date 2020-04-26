@@ -1,14 +1,15 @@
 <template>
   <header class="header-global">
-    <base-nav class="navbar-main" type expand style="background-color: #353E76;"> 
+    <base-nav class="navbar-main" type expand style="background-color: #353E76;">
       <router-link slot="brand" class="navbar-brand mr-lg-5" to="/">
-        <img src="@/assets/img/logo_mini.png" />
+        <!-- <img src="@/assets/img/logo_mini.png" /> -->
       </router-link>
       <div class="row" slot="content-header" slot-scope="{closeMenu}">
         <div class="col-6 collapse-brand">
-          <a href="../index.html" style="color:white;font-weight:700;">
-            {{ 'Inspection2Drone'.toUpperCase() }}
-          </a>
+          <router-link
+            to="/"
+            style="color:white;font-weight:700;"
+          >{{ 'Inspection2Drone'.toUpperCase() }}</router-link>
         </div>
         <div class="col-6 collapse-close">
           <close-button @click="closeMenu"></close-button>
@@ -76,11 +77,17 @@
           </a>
         </li>
         <li class="nav-item d-none d-lg-block ml-lg-4">
-          <router-link class="btn btn-neutral btn-icon" to="/login">
-            <span class="btn-inner--icon"  style="color:#66615B;">
+          <router-link class="btn btn-neutral btn-icon" to="/login" v-if="!logged">
+            <span class="btn-inner--icon" style="color:#66615B;">
               <i class="fa fa-sign-in mr-2" aria-hidden="true"></i>
             </span>
             <span class="nav-link-inner--text gray" style="color:#66615B;">Ingresar</span>
+          </router-link>
+          <router-link class="btn btn-neutral btn-icon" to="/dashboard" v-if="logged">
+            <span class="btn-inner--icon" style="color:#66615B;">
+              <i class="fa fa-tachometer mr-2" aria-hidden="true"></i>
+            </span>
+            <span class="nav-link-inner--text gray" style="color:#66615B;">Ir a Dashboard</span>
           </router-link>
         </li>
       </ul>
@@ -92,12 +99,28 @@ import BaseNav from "@/components/website/BaseNav";
 import CloseButton from "@/components/website/CloseButton";
 
 export default {
+  data() {
+    return {
+      logged: false
+    };
+  },
+  mounted() {
+    this.checkLoggedIn();
+  },
   components: {
     BaseNav,
     CloseButton
+  },
+  methods: {
+    checkLoggedIn() {
+      this.$session.start();
+      if (this.$session.has("token")) {
+        this.logged = true;
+        console.log("tienes sesión");
+      }
+    }
   }
 };
 </script>
 <style>
-
 </style>

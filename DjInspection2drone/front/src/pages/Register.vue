@@ -8,9 +8,10 @@
             <div class="card" style="background-color:#E2E2E2;">
               <div
                 class="card-header pb-3"
-                style="font-weight:700;background-color: #353E76;color:white;">Registrarse</div>
+                style="font-weight:700;background-color: #353E76;color:white;"
+              >Registrarse</div>
               <div class="card-body">
-                <form action method class="mt-3">
+                <form action method class="mt-3" @submit.prevent="Register">
                   <div class="form-group row">
                     <label
                       for="username"
@@ -25,6 +26,7 @@
                         name="username"
                         required
                         autofocus
+                        v-model="register.username"
                       />
                     </div>
                   </div>
@@ -42,6 +44,7 @@
                         name="email"
                         required
                         autofocus
+                        v-model="register.email"
                       />
                     </div>
                   </div>
@@ -57,7 +60,8 @@
                         id="password"
                         class="form-control"
                         name="password"
-                        required v-model="pwd"
+                        required
+                        v-model="register.pwd"
                       />
                     </div>
                   </div>
@@ -73,10 +77,11 @@
                         id="re_password"
                         class="form-control"
                         name="re_password"
-                        required v-model="re_pwd"
+                        required
+                        v-model="register.re_pwd"
                       />
                     </div>
-                    <div v-if="pwd != re_pwd" class="col-md-6 offset-md-4 mb-2">
+                    <div v-if="register.pwd != register.re_pwd" class="col-md-6 offset-md-4 mb-2">
                       <span style="color:#C62020;font-weight:700;">Las contraseñas deben coincidir</span>
                     </div>
                   </div>
@@ -105,13 +110,41 @@ import StarterFooter from "@/layout/website/StarterFooter";
 export default {
   data() {
     return {
-      pwd:'',
-      re_pwd:''
-    }
+      register: {}
+    };
   },
   components: {
     "m-header": StarterHeader,
     StarterFooter
+  },
+  methods: {
+    Register() {
+      // checking if the input is valid
+      // this.loading = true;
+      axios
+        .post("http://127.0.0.1:8000/api/v1.0/user/new/", this.register)
+        .then(res => {
+          console.log(res);
+          swal({
+            type: "success",
+            icon: "success",
+            title: "Proceso Completado",
+            text: res.response,
+            timer: 3000
+          });
+          this.$router.push("/login");
+        })
+        .catch(e => {
+          // this.loading = false;
+          swal({
+            type: "error",
+            icon: "error",
+            title: "Error",
+            text: "El usaurio no puedo ser creado",
+            timer: 3000
+          });
+        });
+    }
   }
 };
 </script>

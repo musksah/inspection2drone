@@ -50,21 +50,22 @@ def auth_list(request):
                 'response': 'El usuario no existe en la base de datos', 'session': False}
         return JsonResponse(response, status=200)
 
+
 @csrf_exempt
 def create_user(request):
     data = JSONParser().parse(request)
     username_r = data['username']
-    password_r = data['password']
+    password_r = data['pwd']
     email_r = data['email']
-
     if request.method == 'POST':
         user = User.objects.create_user(
-            username=username_r,
-            password=password_r,
-            email=email_r
+            username = username_r,
+            password = password_r,
+            email = email_r
         )
         user.save()
-    response = {'response': 'El usuario ha sido creado con éxito!', 'session': False}
+    response = {'response': 'El usuario ha sido creado con éxito!',
+                'session': False, 'data': data}
     return JsonResponse(response, status=200)
 
 

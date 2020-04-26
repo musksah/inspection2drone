@@ -15,7 +15,7 @@
                   <v-layout row fill-height justify-center align-center v-if="loading" style="display:flex;justify-content:center;">
                     <v-progress-circular :size="50" color="primary" indeterminate />
                   </v-layout>
-                  <form action method class="mt-3" @submit.prevent="login">
+                  <form action method class="mt-3" @submit.prevent="Login">
                     <div class="form-group row" style="display:flex;justify-content:center;">
                       <div class="col-md-7">
                         <v-text-field
@@ -87,7 +87,7 @@ export default {
     StarterFooter
   },
   methods: {
-    login() {
+    Login() {
       // checking if the input is valid
       this.loading = true;
       axios

@@ -23,7 +23,7 @@ export default {
   },
   components: {
     "m-header": StarterHeader,
-    "m-carousel":Carousel,
+    "m-carousel": Carousel,
     StarterFooter,
     StarterContent
   },
@@ -34,8 +34,10 @@ export default {
     onSlideEnd(slide) {
       this.sliding = false;
     },
-    LoggedOut(){
+    LoggedOut() {
       this.$session.destroy();
+    },
+    checkLoggedIn() {
     }
   }
 };
