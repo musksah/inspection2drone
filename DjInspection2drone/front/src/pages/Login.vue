@@ -12,10 +12,18 @@
                   style="font-weight:700;background-color: #455199;color:white;"
                 >Iniciar Sesión</div>
                 <div class="card-body">
-                  <v-layout row fill-height justify-center align-center v-if="loading" style="display:flex;justify-content:center;">
+                  <v-layout
+                    row
+                    fill-height
+                    justify-center
+                    align-center
+                    v-if="loading"
+                    style="display:flex;justify-content:center;"
+                  >
                     <v-progress-circular :size="50" color="primary" indeterminate />
                   </v-layout>
-                  <form action method class="mt-3" @submit.prevent="Login">
+                  <!-- <form action method class="mt-3" @submit.prevent="Login"> -->
+                  <v-form ref="form" @submit.prevent="Login" :lazy-validation="lazy" class="mt-3">
                     <div class="form-group row" style="display:flex;justify-content:center;">
                       <div class="col-md-7">
                         <v-text-field
@@ -24,6 +32,7 @@
                           label="usuario"
                           maxlength="70"
                           required
+                          color="red lighten-3"
                         />
                       </div>
                     </div>
@@ -43,6 +52,14 @@
                         />
                       </div>
                     </div>
+                    <div
+                      class="row form-group mb-2"
+                      style="margin-bottom:0;display:flex;justify-content:center;"
+                    >
+                      <div v-if="fail_login" class="col-md-7 mb-2 text-left">
+                        <span style="color:#C62020;font-weight:700;">Usuario o contraseña incorrecta</span>
+                      </div>
+                    </div>
                     <div class="row" style="display:flex;justify-content:center;">
                       <div class="col-md-6 mb-2">
                         <button type="submit" class="btn btn-danger">Ingresar</button>
@@ -58,7 +75,8 @@
                         <router-link to="/register">Registrarse</router-link>
                       </div>
                     </div>
-                  </form>
+                    <!-- </form> -->
+                  </v-form>
                 </div>
               </div>
             </div>
@@ -81,10 +99,26 @@ export default {
     credentials: {},
     valid: true,
     loading: false,
+    fail_login: false,
+    inputs: {
+      user_border_b: "none",
+      password_border_b: "none"
+    }
   }),
   components: {
     "m-header": StarterHeader,
     StarterFooter
+  },
+  computed: {
+    rules() {
+      const rules = [];
+      if (this.fail_login) {
+        const rule = v =>
+          (!!v && v) === this.fail_login || "Usuario o contraseña incorrecta";
+        rules.push(rule);
+      }
+      return rules;
+    }
   },
   methods: {
     Login() {
@@ -104,13 +138,8 @@ export default {
         })
         .catch(e => {
           this.loading = false;
-          swal({
-            type: "error",
-            icon: "error",
-            title: "Error",
-            text: "Wrong username or password",
-            timer: 3000
-          });
+          this.fail_login = true;
+          setTimeout(() => (this.fail_login = false), 3000);
         });
     }
   }
