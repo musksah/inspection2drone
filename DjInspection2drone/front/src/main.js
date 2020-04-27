@@ -19,12 +19,20 @@ import router from "./router/index";
 
 import PaperDashboard from "./plugins/paperDashboard";
 import "vue-notifyjs/themes/default.css";
-import { BootstrapVue, IconsPlugin, CarouselPlugin } from 'bootstrap-vue'
-import  VueSession  from  'vue-session'
-import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css'
-// CommonJS
+import { BootstrapVue, IconsPlugin, CarouselPlugin } from 'bootstrap-vue';
+import  VueSession  from  'vue-session';
+import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+// Se importan las tablas a usar
+// import DataTables and DataTablesServer together
 
+// Librerías de font-awesome
+library.add(faUserSecret)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+// CommonJS
 Vue.use(PaperDashboard);
 // Install BootstrapVue
 Vue.use(BootstrapVue)
@@ -33,7 +41,7 @@ Vue.use(IconsPlugin)
 Vue.use(CarouselPlugin)
 Vue.use(Vuetify)
 Vue.use(VueSession)
-// Vue.use(Swal)
+
 
 /* eslint-disable no-new */
 new Vue({

@@ -14,6 +14,7 @@ import UploadPhoto from "@/pages/UploadPhoto.vue";
 import Home from "@/pages/Home.vue";
 import Login from "@/pages/Login.vue";
 import Register from "@/pages/Register.vue";
+import Company from "@/pages/Company.vue";
 
 const routes = [
   {
@@ -60,6 +61,11 @@ const routes = [
         path: "upload-photo",
         name: "upload-photo",
         component: UploadPhoto
+      },
+      {
+        path: "company",
+        name: "company",
+        component: Company
       },
     ]
   },
