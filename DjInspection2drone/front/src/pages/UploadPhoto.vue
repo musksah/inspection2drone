@@ -1,77 +1,37 @@
 <template>
-  <card title="Cargar fotos" sub-title="Módulo de carga de imágenes de drone2evolution">
+  <card class="card" title="Módulo de Carga de Fotografías">
     <div>
-      <div class="row">
-        <div class="col-md-6">
-          <h5>Cargar Fotos</h5>
-          <div class="alert alert-info">
-            <span>This is a plain notification</span>
-          </div>
-          <div class="alert alert-info">
-            <button type="button" aria-hidden="true" class="close">×</button>
-            <span>This is a notification with close button.</span>
-          </div>
-          <div class="alert alert-info alert-with-icon" data-notify="container">
-            <button type="button" aria-hidden="true" class="close">×</button>
-            <span data-notify="icon" class="ti-bell"></span>
-            <span data-notify="message">This is a notification with close button and icon.</span>
-          </div>
-          <div class="alert alert-info alert-with-icon" data-notify="container">
-            <button type="button" aria-hidden="true" class="close">×</button>
-            <span data-notify="icon" class="ti-pie-chart"></span>
-            <span data-notify="message">This is a notification with close button and icon and have many lines. You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don't have to worry about the style.</span>
+      <form @submit.prevent class="mt-2 mb-4">
+        <div class="row">
+          <div class="col-md-4">
+            <select class="custom-select">
+              <option selected>Compañía</option>
+              <option value="Coca Cola">Coca Cola</option>
+              <option value="Pepsi">Pepsi</option>
+              <option value="Sprite">Sprite</option>
+            </select>
           </div>
         </div>
-        <div class="col-md-6">
-          <h5>Notification states</h5>
-          <div class="alert alert-info">
-            <button type="button" aria-hidden="true" class="close">×</button>
-            <span>
-              <b> Info - </b> This is a regular notification made with ".alert-info"</span>
-          </div>
-          <div class="alert alert-success">
-            <button type="button" aria-hidden="true" class="close">×</button>
-            <span>
-              <b> Success - </b> This is a regular notification made with ".alert-success"</span>
-          </div>
-          <div class="alert alert-warning">
-            <button type="button" aria-hidden="true" class="close">×</button>
-            <span>
-              <b> Warning - </b> This is a regular notification made with ".alert-warning"</span>
-          </div>
-          <div class="alert alert-danger">
-            <button type="button" aria-hidden="true" class="close">×</button>
-            <span>
-              <b> Danger - </b> This is a regular notification made with ".alert-danger"</span>
+        <div class="row">
+          <div class="col-md-12">
+            <input type="file" @change="processFile($event)" />
           </div>
         </div>
-      </div>
-      <br>
+      </form>
     </div>
   </card>
 </template>
 <script>
-import NotificationTemplate from './Notifications/NotificationTemplate';
-
 export default {
   data() {
     return {
-      type: ["", "info", "success", "warning", "danger"],
-      notifications: {
-        topCenter: false
-      }
+      file: "",
+      company: ""
     };
   },
   methods: {
-    notifyVue(verticalAlign, horizontalAlign) {
-      const color = Math.floor(Math.random() * 4 + 1);
-      this.$notify({
-        component: NotificationTemplate,
-        icon: "ti-gift",
-        horizontalAlign: horizontalAlign,
-        verticalAlign: verticalAlign,
-        type: this.type[color]
-      });
+    processFile(event) {
+      this.someData = event.target.files[0];
     }
   }
 };

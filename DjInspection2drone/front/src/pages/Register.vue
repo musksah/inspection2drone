@@ -11,6 +11,9 @@
                 style="font-weight:700;background-color: #353E76;color:white;"
               >Registrarse</div>
               <div class="card-body">
+                <v-layout row fill-height justify-center align-center v-if="loading" style="display:flex;justify-content:center;">
+                    <v-progress-circular :size="50" color="primary" indeterminate />
+                </v-layout>
                 <form action method class="mt-3" @submit.prevent="Register">
                   <div class="form-group row">
                     <label
@@ -110,7 +113,8 @@ import StarterFooter from "@/layout/website/StarterFooter";
 export default {
   data() {
     return {
-      register: {}
+      register: {},
+      loading: false
     };
   },
   components: {
@@ -120,7 +124,7 @@ export default {
   methods: {
     Register() {
       // checking if the input is valid
-      // this.loading = true;
+      this.loading = true;
       axios
         .post("http://127.0.0.1:8000/api/v1.0/user/new/", this.register)
         .then(res => {
@@ -135,7 +139,7 @@ export default {
           this.$router.push("/login");
         })
         .catch(e => {
-          // this.loading = false;
+          this.loading = false;
           swal({
             type: "error",
             icon: "error",

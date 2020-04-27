@@ -19,7 +19,7 @@
               <p>Stats</p>
             </a>
           </li>
-          <drop-down class="nav-item"
+          <!-- <drop-down class="nav-item"
                      title="5 Notifications"
                      title-classes="nav-link"
                      icon="ti-bell">
@@ -28,15 +28,21 @@
             <a class="dropdown-item" href="#">Notification 3</a>
             <a class="dropdown-item" href="#">Notification 4</a>
             <a class="dropdown-item" href="#">Another notification</a>
+          </drop-down> -->
+          <drop-down class="nav-item"
+                     v-bind:title="this.username"
+                     title-classes="nav-link"
+                     icon="ti-user">
+            <a class="dropdown-item" href="#" @click="LogOut">Cerrar Sesión</a>
           </drop-down>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="ti-settings"></i>
               <p>
                 Settings
               </p>
             </a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div></nav>
@@ -51,8 +57,13 @@ export default {
   },
   data() {
     return {
-      activeNotifications: false
+      activeNotifications: false,
+      username:''
     };
+  },
+  mounted() {
+    this.$session.start();
+    this.username = this.$session.get('user');
   },
   methods: {
     capitalizeFirstLetter(string) {
@@ -69,6 +80,10 @@ export default {
     },
     hideSidebar() {
       this.$sidebar.displaySidebar(false);
+    },
+    LogOut(){
+      this.$session.destroy();
+      this.$router.push("/");
     }
   }
 };

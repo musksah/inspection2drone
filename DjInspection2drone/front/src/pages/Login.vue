@@ -80,7 +80,7 @@ export default {
   data: () => ({
     credentials: {},
     valid: true,
-    loading: false
+    loading: false,
   }),
   components: {
     "m-header": StarterHeader,
@@ -99,6 +99,7 @@ export default {
           console.log(res);
           this.$session.start();
           this.$session.set("token", res.data.token);
+          this.$session.set("user", this.credentials.username);
           this.$router.push("/dashboard");
         })
         .catch(e => {
