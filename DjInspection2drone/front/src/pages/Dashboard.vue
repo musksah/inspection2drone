@@ -89,10 +89,10 @@ export default {
   },
   methods: {
     checkLoggedIn() {
-      this.$session.start();
-      if (!this.$session.has("token")) {
-        this.$router.push("/login");
-      }
+      // this.$session.start();
+      // if (!this.$session.has("token")) {
+      //   this.$router.push("/login");
+      // }
     }
   },
   /**

@@ -23,7 +23,7 @@
                     <v-progress-circular :size="50" color="primary" indeterminate />
                   </v-layout>
                   <!-- <form action method class="mt-3" @submit.prevent="Login"> -->
-                  <v-form ref="form" @submit.prevent="Login" :lazy-validation="lazy" class="mt-3">
+                  <v-form ref="form" @submit.prevent="Login" class="mt-3">
                     <div class="form-group row" style="display:flex;justify-content:center;">
                       <div class="col-md-7">
                         <v-text-field
@@ -109,38 +109,51 @@ export default {
     "m-header": StarterHeader,
     StarterFooter
   },
-  computed: {
-    rules() {
-      const rules = [];
-      if (this.fail_login) {
-        const rule = v =>
-          (!!v && v) === this.fail_login || "Usuario o contraseña incorrecta";
-        rules.push(rule);
-      }
-      return rules;
-    }
-  },
+  computed: {},
   methods: {
     Login() {
       // checking if the input is valid
       this.loading = true;
-      axios
-        .post(
-          "http://127.0.0.1:8000/api/v1.0/auth/obtain_token/",
-          this.credentials
-        )
-        .then(res => {
-          console.log(res);
-          this.$session.start();
-          this.$session.set("token", res.data.token);
-          this.$session.set("user", this.credentials.username);
+      // axios
+      //   .post(
+      //     "http://127.0.0.1:8000/api/v1.0/auth/obtain_token/",
+      //     this.credentials
+      //   )
+      //   .then(res => {
+      //     console.log(res);
+      //     this.$session.start();
+      //     this.$session.set("token", res.data.token);
+      //     this.$session.set("user", this.credentials.username);
+      //     this.$router.push("/dashboard");
+      //   })
+      //   .catch(e => {
+      //     this.loading = false;
+      //     this.fail_login = true;
+      //     setTimeout(() => (this.fail_login = false), 3000);
+      //   });
+      this.$store
+        .dispatch("obtainToken", {
+          username: this.credentials.username,
+          password: this.credentials.password
+        })
+        .then(response => {
+          this.$store.commit("updateToken", response.data.token);
+          this.$store.commit("updateUsername", this.credentials.username);
           this.$router.push("/dashboard");
         })
-        .catch(e => {
+        .catch(error => {
           this.loading = false;
           this.fail_login = true;
           setTimeout(() => (this.fail_login = false), 3000);
         });
+      // .then(() => {
+      //   this.$router.push("/dashboard");
+      // }).
+      // catch(e => {
+      //   this.loading = false;
+      //   this.fail_login = true;
+      //   setTimeout(() => (this.fail_login = false), 3000);
+      // });
     }
   }
 };

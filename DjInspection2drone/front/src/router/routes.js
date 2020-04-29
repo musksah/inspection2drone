@@ -15,6 +15,7 @@ import Home from "@/pages/Home.vue";
 import Login from "@/pages/Login.vue";
 import Register from "@/pages/Register.vue";
 import Company from "@/pages/Company.vue";
+import Plan from "@/pages/Plan.vue";
 
 const routes = [
   {
@@ -66,6 +67,11 @@ const routes = [
         path: "company",
         name: "company",
         component: Company
+      },
+      {
+        path: "plans",
+        name: "plans",
+        component: Plan
       },
     ]
   },

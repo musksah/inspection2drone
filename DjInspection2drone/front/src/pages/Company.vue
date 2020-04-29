@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <div class="row">
       <div class="col-md-7">
         <ag-grid-vue
@@ -11,38 +11,37 @@
         ></ag-grid-vue>
       </div>
     </div>
-    <b-button v-b-modal.modal-1>Nueva Compañía</b-button>
-    <b-modal id="modal-1" title="BootstrapVue">
-      <v-content>
-        <v-form ref="form" v-model="valid" lazy-validation>
-          <v-text-field v-model="name" :counter="10" :rules="nameRules" label="Name" required></v-text-field>
-
-          <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-
-          <v-select
-            v-model="select"
-            :items="items"
-            :rules="[v => !!v || 'Item is required']"
-            label="Item"
+    <b-button v-b-modal.modal-1>Registrar Compañía</b-button>
+    <b-modal id="modal-1" title="Registrar Compañía">
+      <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+        <b-form-group
+          id="input-group-1"
+          label="Email address:"
+          label-for="input-1"
+          description="We'll never share your email with anyone else."
+        >
+          <b-form-input
+            id="input-1"
+            v-model="form.email"
+            type="email"
             required
-          ></v-select>
+            placeholder="Enter email"
+          ></b-form-input>
+        </b-form-group>
 
-          <v-checkbox
-            v-model="checkbox"
-            :rules="[v => !!v || 'You must agree to continue!']"
-            label="Do you agree?"
-            required
-          ></v-checkbox>
+        <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
+          <b-form-input id="input-2" v-model="form.name" required placeholder="Enter name"></b-form-input>
+        </b-form-group>
 
-          <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">Validate</v-btn>
+        <b-form-group id="input-group-3" label="Food:" label-for="input-3">
+          <b-form-select id="input-3" v-model="form.food" :options="foods" required></b-form-select>
+        </b-form-group>
 
-          <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
-
-          <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn>
-        </v-form>
-      </v-content>
+        <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button type="reset" variant="danger">Reset</b-button>
+      </b-form>
     </b-modal>
-  </v-app>
+  </div>
 </template>
 
 <script>
@@ -55,25 +54,20 @@ export default {
       dialog: false,
       columnDefs: null,
       rowData: null,
-       valid: true,
-      name: '',
-      nameRules: [
-        v => !!v || 'Name is required',
-        v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+      form: {
+        email: "",
+        name: "",
+        food: null,
+        checked: []
+      },
+      foods: [
+        { text: "Select One", value: null },
+        "Carrots",
+        "Beans",
+        "Tomatoes",
+        "Corn"
       ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      ],
-      select: null,
-      items: [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4',
-      ],
-      checkbox: false,
+      show: true
     };
   },
   components: {
@@ -93,15 +87,23 @@ export default {
     ];
   },
   methods: {
-    validate () {
-        this.$refs.form.validate()
-      },
-      reset () {
-        this.$refs.form.reset()
-      },
-      resetValidation () {
-        this.$refs.form.resetValidation()
-      },
-  },
+    onSubmit(evt) {
+      evt.preventDefault();
+      alert(JSON.stringify(this.form));
+    },
+    onReset(evt) {
+      evt.preventDefault();
+      // Reset our form values
+      this.form.email = "";
+      this.form.name = "";
+      this.form.food = null;
+      this.form.checked = [];
+      // Trick to reset/clear native browser form validation state
+      this.show = false;
+      this.$nextTick(() => {
+        this.show = true;
+      });
+    }
+  }
 };
 </script>

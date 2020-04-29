@@ -8,4 +8,5 @@ class Plan(models.Model):
     user_number = models.IntegerField()
     analysis_number = models.IntegerField()
     term_months_number = models.IntegerField()
+    inspection_number = models.IntegerField(default=0)
    

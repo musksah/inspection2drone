@@ -62,8 +62,7 @@ export default {
     };
   },
   mounted() {
-    this.$session.start();
-    this.username = this.$session.get('user');
+    this.username = this.$store.state.username;
   },
   methods: {
     capitalizeFirstLetter(string) {

@@ -105,7 +105,7 @@ export default {
     };
   },
   mounted() {
-    this.checkLoggedIn();
+    // this.checkLoggedIn();
   },
   components: {
     BaseNav,
