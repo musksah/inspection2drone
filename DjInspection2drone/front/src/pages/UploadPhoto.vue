@@ -4,12 +4,13 @@
       <form @submit.prevent class="mt-2 mb-4">
         <div class="row">
           <div class="col-md-4">
-            <select class="custom-select">
+            <!-- <select class="custom-select">
               <option selected>Compañía</option>
               <option value="Coca Cola">Coca Cola</option>
               <option value="Pepsi">Pepsi</option>
               <option value="Sprite">Sprite</option>
-            </select>
+            </select>-->
+            <b-form-select v-model="selected" :options="options"></b-form-select>
           </div>
         </div>
         <div class="row">
@@ -22,16 +23,48 @@
   </card>
 </template>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       file: "",
-      company: ""
+      company: "",
+      selected: null,
+      options: [{value:null,text:"seleccionar..."}]
     };
   },
+  beforeMount() {
+    this.base_instance_axios = this.$store.getters.getBaseInstanceAxios;
+  },
+  mounted() {
+    this.loadSelectCompany();
+  },
   methods: {
-    processFile(event) {
-      this.someData = event.target.files[0];
+    loadSelectCompany() {
+      const axiosInstance = axios.create(this.base_instance_axios);
+      axiosInstance({
+        url: "/companies/",
+        method: "get",
+        params: {}
+      })
+        .then(res => {
+          console.log(res);
+          res.data.forEach(item => {
+            this.options.push({
+              value:item.name,text:item.name
+            })
+          });
+        })
+        .catch(e => {
+          this.loading = false;
+          swal({
+            type: "error",
+            icon: "error",
+            title: "Error",
+            text: "El usaurio no puedo ser creado",
+            timer: 3000
+          });
+        });
     }
   }
 };

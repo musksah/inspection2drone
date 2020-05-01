@@ -1,4 +1,6 @@
 
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
+from rest_framework import viewsets
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
@@ -8,7 +10,8 @@ from django.contrib.sessions.backends.db import SessionStore
 from rest_framework import generics
 from rest_framework_jwt.views import refresh_jwt_token
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import permission_required
+from .serializers import PermissionSerializer
+from django.contrib.auth.models import Permission
 
 # Create your views here.
 
@@ -16,6 +19,11 @@ from django.contrib.auth.decorators import permission_required
 #   authentication_class = (JSONWebTokenAuthentication,) # Don't forget to add a 'comma' after first element to make it a tuple
 #   permission_classes = (IsAuthenticated,)
 
+
+class PermissionViewSet(viewsets.ModelViewSet):
+    queryset = Permission.objects.all()
+    serializer_class = PermissionSerializer
+    permission_classes = (IsAuthenticated,)
 
 @csrf_exempt
 def auth_list(request):
@@ -70,4 +78,6 @@ def create_user(request):
     return JsonResponse(response, status=200)
 
 
-# Create your views here.
+
+
+

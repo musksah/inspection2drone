@@ -99,13 +99,6 @@ export default {
         term_months_number: "",
         inspection_number: ""
       },
-      foods: [
-        { text: "Select One", value: null },
-        "Carrots",
-        "Beans",
-        "Tomatoes",
-        "Corn"
-      ],
       show: true,
       loading: false,
       base_instance_axios:{}

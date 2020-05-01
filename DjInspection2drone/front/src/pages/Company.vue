@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-md-7">
+      <div class="col-md-12">
         <ag-grid-vue
           style="width: auto; height: 300px;"
           class="ag-theme-balham"
@@ -34,7 +34,7 @@
         </b-form-group>
 
         <b-form-group id="input-group-3" label="Food:" label-for="input-3">
-          <b-form-select id="input-3" v-model="form.food" :options="foods" required></b-form-select>
+          <b-form-select id="input-3" v-model="form.food" required></b-form-select>
         </b-form-group>
 
         <b-button type="submit" variant="primary">Submit</b-button>
@@ -45,28 +45,21 @@
 </template>
 
 <script>
+import axios from "axios";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { AgGridVue } from "ag-grid-vue";
 export default {
   data() {
     return {
-      dialog: false,
-      columnDefs: null,
-      rowData: null,
+      columnDefs: [],
+      rowData: [],
       form: {
         email: "",
         name: "",
         food: null,
         checked: []
       },
-      foods: [
-        { text: "Select One", value: null },
-        "Carrots",
-        "Beans",
-        "Tomatoes",
-        "Corn"
-      ],
       show: true
     };
   },
@@ -74,17 +67,10 @@ export default {
     AgGridVue
   },
   beforeMount() {
-    this.columnDefs = [
-      { headerName: "Make", field: "make" },
-      { headerName: "Model", field: "model" },
-      { headerName: "Price", field: "price" }
-    ];
-
-    this.rowData = [
-      { make: "Toyota", model: "Celica", price: 35000 },
-      { make: "Ford", model: "Mondeo", price: 32000 },
-      { make: "Porsche", model: "Boxter", price: 72000 }
-    ];
+    this.base_instance_axios = this.$store.getters.getBaseInstanceAxios
+  },
+  mounted() {
+    this.getList();
   },
   methods: {
     onSubmit(evt) {
@@ -103,6 +89,43 @@ export default {
       this.$nextTick(() => {
         this.show = true;
       });
+    },
+    getList() {
+      this.columnDefs = [];
+      this.rowData = [];
+
+      const axiosInstance = axios.create(this.base_instance_axios);
+      axiosInstance({
+        url: "/companies/",
+        method: "get",
+        params: {}
+      })
+        .then(res => {
+          console.log(res);
+          res.data.forEach(item => {
+            Object.keys(item).forEach(key => {
+              this.columnDefs.push({ headerName: key, field: key });
+            });
+            this.rowData.push({
+              id: item.id,
+              name: item.name,
+              email: item.email,
+              phone_number: item.phone_number,
+              address: item.address,
+              plan: item.plan,
+            });
+          });
+        })
+        .catch(e => {
+          this.loading = false;
+          swal({
+            type: "error",
+            icon: "error",
+            title: "Error",
+            text: "El usaurio no puedo ser creado",
+            timer: 3000
+          });
+        });
     }
   }
 };

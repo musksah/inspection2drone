@@ -154,6 +154,25 @@ export default {
       //   this.fail_login = true;
       //   setTimeout(() => (this.fail_login = false), 3000);
       // });
+    },
+    getUserPermissions(){
+      axios
+        .post(
+          "http://127.0.0.1:8000/api/v1.0/auth/obtain_token/",
+          this.credentials
+        )
+        .then(res => {
+          console.log(res);
+          this.$session.start();
+          this.$session.set("token", res.data.token);
+          this.$session.set("user", this.credentials.username);
+          this.$router.push("/dashboard");
+        })
+        .catch(e => {
+          this.loading = false;
+          this.fail_login = true;
+          setTimeout(() => (this.fail_login = false), 3000);
+        });
     }
   }
 };

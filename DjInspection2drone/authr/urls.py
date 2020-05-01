@@ -7,4 +7,5 @@ urlpatterns = [
     path('user/new/', views.create_user),
     path('auth/obtain_token/', obtain_jwt_token),
     path('auth/refresh_token/', refresh_jwt_token),
+    path('auth/obtain_permissions/', refresh_jwt_token),
 ]
