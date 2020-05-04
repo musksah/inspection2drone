@@ -9,3 +9,6 @@ class Company(models.Model):
     phone_number = models.IntegerField()
     address = models.CharField(max_length = 250)
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
+    start_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    update_date = models.DateTimeField(auto_now = True)
+    user_resgister = models.IntegerField(default=0)

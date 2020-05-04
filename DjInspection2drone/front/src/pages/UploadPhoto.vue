@@ -3,7 +3,7 @@
     <div>
       <form @submit.prevent class="mt-2 mb-4">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-5">
             <!-- <select class="custom-select">
               <option selected>Compañía</option>
               <option value="Coca Cola">Coca Cola</option>
@@ -14,8 +14,23 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <!-- <div class="col-md-12">
             <input type="file" @change="processFile($event)" />
+          </div>-->
+          <div class="col-md-5">
+            <b-form-file
+              v-model="file"
+              :state="Boolean(file)"
+              placeholder="Escoja un archivo o suéltelo acá..."
+              drop-placeholder="Drop file here..."
+              accept="image/jpeg, image/gif"
+              browse-text="buscar"
+            ></b-form-file>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <b-button variant="primary">Registrar</b-button>
           </div>
         </div>
       </form>
@@ -30,7 +45,8 @@ export default {
       file: "",
       company: "",
       selected: null,
-      options: [{value:null,text:"seleccionar..."}]
+      options: [{ value: null, text: "seleccionar..." }],
+      file: null
     };
   },
   beforeMount() {
@@ -51,8 +67,9 @@ export default {
           console.log(res);
           res.data.forEach(item => {
             this.options.push({
-              value:item.name,text:item.name
-            })
+              value: item.name,
+              text: item.name
+            });
           });
         })
         .catch(e => {

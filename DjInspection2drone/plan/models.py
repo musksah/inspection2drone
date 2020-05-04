@@ -9,4 +9,7 @@ class Plan(models.Model):
     analysis_number = models.IntegerField()
     term_months_number = models.IntegerField()
     inspection_number = models.IntegerField(default=0)
+    start_date = models.DateTimeField(auto_now = False, auto_now_add=True, blank=True, null=True),
+    update_date = models.DateTimeField(auto_now = True)
+    user_resgister = models.IntegerField(default=0)
    

@@ -2,11 +2,13 @@
   <div class="wrapper">
     <side-bar>
       <template slot="links">
-        <sidebar-link to="/dashboard" name="Dashboard" icon="ti-panel"/>
-        <sidebar-link to="/stats" name="User Profile" icon="ti-user"/>
-        <sidebar-link to="/upload-photo" name="Cargar Fotos" icon="ti-image"/>
-        <sidebar-link to="/company" name="Compañías" icon="ti-briefcase"/>
-        <sidebar-link to="/plans" name="Planes" icon="ti-direction"/>
+        <!-- {{ module }} -->
+        <!-- <sidebar-link to="/dashboard" name="Dashboard" icon="ti-panel"/> -->
+        <!-- <sidebar-link to="/stats" name="User Profile" icon="ti-user"/> -->
+        <!-- <sidebar-link :to="module" name="Cargar Fotos" v-for="module in modules" icon="ti-image">
+        </sidebar-link> -->
+        <sidebar-link v-for="module in modules" :key="module" :to="'/'+module" name="Compañías" icon="ti-briefcase"/>
+        <!-- <sidebar-link to="/plans" name="Planes" icon="ti-direction"/>  -->
         <!-- <sidebar-link to="/table-list" name="Table List" icon="ti-view-list-alt"/> -->
         <!-- <sidebar-link to="/icons" name="Icons" icon="ti-pencil-alt2"/> -->
         <!-- <sidebar-link to="/maps" name="Map" icon="ti-map"/> -->
@@ -57,6 +59,16 @@ import ContentFooter from "./ContentFooter.vue";
 import DashboardContent from "./Content.vue";
 import MobileMenu from "./MobileMenu";
 export default {
+  data() {
+    return {
+      modules:this.$store.getters.getModules,
+      // modules:this.$store.state.modules
+    }
+  },
+  created() {
+    console.log(this.$store.getters.getModules);
+    
+  },
   components: {
     TopNavbar,
     ContentFooter,

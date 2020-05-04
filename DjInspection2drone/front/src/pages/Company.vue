@@ -109,6 +109,7 @@ export default {
             this.rowData.push({
               id: item.id,
               name: item.name,
+              nit: item.nit,
               email: item.email,
               phone_number: item.phone_number,
               address: item.address,

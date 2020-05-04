@@ -12,7 +12,8 @@ from rest_framework_jwt.views import refresh_jwt_token
 from django.contrib.auth.models import User
 from .serializers import PermissionSerializer
 from django.contrib.auth.models import Permission
-
+from rest_framework.response import Response
+from django.core import serializers
 # Create your views here.
 
 # class PostsView(generics.ListAPIView):
@@ -21,9 +22,22 @@ from django.contrib.auth.models import Permission
 
 
 class PermissionViewSet(viewsets.ModelViewSet):
-    queryset = Permission.objects.all()
-    serializer_class = PermissionSerializer
-    permission_classes = (IsAuthenticated,)
+    # queryset = Permission.objects.all()
+    # serializer_class = PermissionSerializer
+    # serializer_class = PermissionSerializer
+    # permission_classes = (IsAuthenticated,)
+    # response = {'response': 'Hola mis perros'}
+    # return JsonResponse(response, status=200)
+    def list(self, request):
+        queryset = Permission.objects.filter(user=request.user)
+        # queryset = Permission.objects.all()
+        # serializer = PermissionSerializer(queryset)
+        # serialized_q = json.dumps(list(queryset), cls=DjangoJSONEncoder)
+        # return JsonResponse(list(request.user), safe=False)
+        qs_json = serializers.serialize('json', queryset)
+        return HttpResponse(qs_json, content_type='application/json')
+        # return Response(list(queryset),safe=False)
+        # return Response({'response':'hola'})
 
 @csrf_exempt
 def auth_list(request):

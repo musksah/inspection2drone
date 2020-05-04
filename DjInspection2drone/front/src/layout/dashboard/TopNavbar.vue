@@ -2,11 +2,13 @@
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">{{routeName}}</a>
-      <button class="navbar-toggler navbar-burger"
-              type="button"
-              @click="toggleSidebar"
-              :aria-expanded="$sidebar.showSidebar"
-              aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler navbar-burger"
+        type="button"
+        @click="toggleSidebar"
+        :aria-expanded="$sidebar.showSidebar"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-bar"></span>
         <span class="navbar-toggler-bar"></span>
         <span class="navbar-toggler-bar"></span>
@@ -28,11 +30,13 @@
             <a class="dropdown-item" href="#">Notification 3</a>
             <a class="dropdown-item" href="#">Notification 4</a>
             <a class="dropdown-item" href="#">Another notification</a>
-          </drop-down> -->
-          <drop-down class="nav-item"
-                     v-bind:title="this.username"
-                     title-classes="nav-link"
-                     icon="ti-user">
+          </drop-down>-->
+          <drop-down
+            class="nav-item"
+            v-bind:title="this.username"
+            title-classes="nav-link"
+            icon="ti-user"
+          >
             <a class="dropdown-item" href="#" @click="LogOut">Cerrar Sesión</a>
           </drop-down>
           <!-- <li class="nav-item">
@@ -42,12 +46,14 @@
                 Settings
               </p>
             </a>
-          </li> -->
+          </li>-->
         </ul>
       </div>
-    </div></nav>
+    </div>
+  </nav>
 </template>
 <script>
+import axios from "axios";
 export default {
   computed: {
     routeName() {
@@ -58,7 +64,7 @@ export default {
   data() {
     return {
       activeNotifications: false,
-      username:''
+      username: ""
     };
   },
   mounted() {
@@ -80,10 +86,10 @@ export default {
     hideSidebar() {
       this.$sidebar.displaySidebar(false);
     },
-    LogOut(){
+    LogOut() {
       this.$session.destroy();
       this.$router.push("/");
-    }
+    },
   }
 };
 </script>

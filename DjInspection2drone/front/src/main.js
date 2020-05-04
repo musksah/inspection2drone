@@ -37,16 +37,30 @@ Vue.use(VueAxios, axios);
 const store = new Vuex.Store({
   state: {
     jwt: localStorage.getItem('t'),
-    username:"",
+    username:localStorage.getItem('username'),
     endpoints: {
       obtainJWT: 'http://127.0.0.1:8000/api/v1.0/auth/obtain_token/',
       refreshJWT: 'http://127.0.0.1:8000/api/v1.0/auth/refresh_token/'
     },
-    // configJWT: {
-    //   headers: {
-    //     Authorization: "Bearer " + yourJWTToken
-    //   }
-    // }
+    permissions:localStorage.getItem('permissions'),
+    modules:localStorage.getItem('modules'),
+    info_modules:{
+      'Can view plan':{
+        name:"Planes",
+        route:"",
+        icon:"ti-briefcase"
+      },
+      'Can view company':{
+        name:"Compañías",
+        route:"company",
+        icon:"ti-briefcase"
+      },
+      'Can view image':{
+        name:"Cargar Imágenes",
+        route:"upload-photo",
+        icon:"ti-briefcase"
+      },
+    }
   },
   getters:{
     getBaseInstanceAxios: state =>{
@@ -60,6 +74,9 @@ const store = new Vuex.Store({
           withCredentials: true
         }
       };
+    }, 
+    getModules: state =>{
+      return JSON.parse(state.modules);
     }
   },
   mutations: {
@@ -74,6 +91,17 @@ const store = new Vuex.Store({
     updateUsername(state, username){
       localStorage.setItem('username',username);
       state.username = username;
+    },
+    storePermissions(state, permissions){
+      state.permissions = []
+      permissions.forEach(element => {
+        state.permissions.push(element.fields.name)
+      });
+      localStorage.setItem('permissions',state.permissions)
+      state.modules = state.permissions.filter(function(perm){
+        return perm.includes("view"); 
+      });
+      localStorage.setItem('modules',JSON.stringify(state.modules));
     }
   },
   actions: {
@@ -111,7 +139,7 @@ const store = new Vuex.Store({
           // PROMPT USER TO RE-LOGIN, THIS ELSE CLAUSE COVERS THE CONDITION WHERE A TOKEN IS EXPIRED AS WELL
         }
       }
-    },
+    }
     // WE WILL ADD THIS LATER
   }
 });
