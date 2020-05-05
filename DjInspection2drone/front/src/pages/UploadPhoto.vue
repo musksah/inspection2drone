@@ -1,7 +1,7 @@
 <template>
   <card class="card" title="Módulo de Carga de Fotografías">
     <div>
-      <form @submit.prevent class="mt-2 mb-4">
+      <form @submit.prevent="saveImage" class="mt-2 mb-4">
         <div class="row">
           <div class="col-md-5">
             <!-- <select class="custom-select">
@@ -10,7 +10,7 @@
               <option value="Pepsi">Pepsi</option>
               <option value="Sprite">Sprite</option>
             </select>-->
-            <b-form-select v-model="selected" :options="options"></b-form-select>
+            <b-form-select v-model="form.company_id" :options="options"></b-form-select>
           </div>
         </div>
         <div class="row">
@@ -19,18 +19,20 @@
           </div>-->
           <div class="col-md-5">
             <b-form-file
-              v-model="file"
-              :state="Boolean(file)"
+              v-model="form.file"
+              :state="Boolean(form.file)"
               placeholder="Escoja un archivo o suéltelo acá..."
               drop-placeholder="Drop file here..."
               accept="image/jpeg, image/gif"
               browse-text="buscar"
+              @change="handleFileUpload"
+              ref="file"
             ></b-form-file>
           </div>
         </div>
         <div class="row">
           <div class="col-md-4">
-            <b-button variant="primary">Registrar</b-button>
+            <b-button type="submit" variant="primary">Registrar</b-button>
           </div>
         </div>
       </form>
@@ -42,11 +44,13 @@ import axios from "axios";
 export default {
   data() {
     return {
-      file: "",
       company: "",
       selected: null,
       options: [{ value: null, text: "seleccionar..." }],
-      file: null
+      form: {
+        company_id: null,
+        file: null
+      }
     };
   },
   beforeMount() {
@@ -78,10 +82,39 @@ export default {
             type: "error",
             icon: "error",
             title: "Error",
-            text: "El usaurio no puedo ser creado",
+            text: "El usuario no puedo ser creado",
             timer: 3000
           });
         });
+    },
+    saveImage() {
+      let formData = new FormData();
+      formData.append('file', this.form.file);
+      // formData.append('company_id', this.form.company_id);
+      formData.append('company_id',this.form.company_id);
+      const axiosInstance = axios.create(this.base_instance_axios);
+      axiosInstance({
+        url: "/images/",
+        method: "post",
+        data: formData,
+        headers: {'Content-Type': 'multipart/form-data'}
+      })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(e => {
+          this.loading = false;
+          swal({
+            type: "error",
+            icon: "error",
+            title: "Error",
+            text: "El usuario no puedo ser creado",
+            timer: 3000
+          });
+        });
+    },
+    handleFileUpload(event) {
+      this.form.file = event.target.files[0]
     }
   }
 };

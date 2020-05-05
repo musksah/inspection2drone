@@ -61,7 +61,6 @@ def auth_list(request):
         deco = s.model().get_decoded()
         # s.delete(session_key='2b1189a188b44ad18c35e113ac6ceead')
         sessioxn = s.exists(session_key='2b1189a188b44ad18c35e113ac6ceead')
-
         if user is not None:
             response = {'response': 'Usuario encontrado',
                         'username': username, 'decoded': deco}

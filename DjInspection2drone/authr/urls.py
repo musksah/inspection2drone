@@ -13,7 +13,6 @@ urlpatterns = [
 ]
 
 router = routers.SimpleRouter()
-router.register('permissions', PermissionViewSet, basename='permussion')
-
+router.register('permissions', PermissionViewSet, basename='permission')
 urlpatterns += router.urls
 

@@ -1,8 +1,12 @@
 from rest_framework import routers
+from image import views
+from django.urls import path
 
-from .views import ImageViewSet
+urlpatterns = [
+    path('image/create/', views.create_image),
+]
 
 router = routers.SimpleRouter()
-router.register('images', ImageViewSet)
+router.register('images', views.ImageViewSet)
 
-urlpatterns = router.urls
+urlpatterns += router.urls

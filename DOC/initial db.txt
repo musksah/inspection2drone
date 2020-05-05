@@ -25,5 +25,27 @@ user.is_superuser=True
 user.is_staff=True
 user.save()
 
+// Insertar el primer drone //
+from drone.models import Drone 
+drone = Drone.objects.create(brand="Mavic", model=2019, color="Gris", line="PHANTOM 4 RTK", serialnumber="1221SRTQHQJQ3333", weight=5, flight_time=30)
+drone.save()
+
+// Insertar el primer piloto //
+import datetime
+from pilot.models import Pilot 
+myStr = "2011-10-01 15:26"
+WHAT_GOES_HERE = datetime.datetime.strptime(myStr, "%Y-%m-%d %H:%M")
+pilot = Pilot.objects.create(name="Andrés", lastname="Rodríguez", email="andre@drone2.com", address="Cra 34 # 34 - 56", birthdate=WHAT_GOES_HERE, phonenumber=7856521)
+pilot.save()
+
+// Insertar la primera inspección //
+import datetime
+myStr = "2011-10-01 15:26"
+WHAT_GOES_HERE = datetime.datetime.strptime(myStr, "%Y-%m-%d %H:%M")
+from inspection.models import Inspection 
+inspection = Inspection.objects.create(agreed_date=WHAT_GOES_HERE, performed_date=WHAT_GOES_HERE, state="Pendiente", company_id=1, pilot_id=1)
+inspection.save()
+
+
 
 

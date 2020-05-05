@@ -8,11 +8,11 @@ def _has_permission_(user):
     """
     return user.has_perm('plan.view_plan')
 
-class IsAuthorized(permissions.BasePermission):
+class IsAuthorizedToCreate(permissions.BasePermission):
     message = 'El usuario no tiene permisos para acceder a este módulo.'
     def has_permission(self, request, view):
         # user = get_object_or_404(User, pk=1)
         # return _has_permission_(user)
         # return user.has_perm('plan.view_plan')
-        return request.user.has_perm('plan.view_plan')
+        return request.user.has_perm('image.add_image')
         
