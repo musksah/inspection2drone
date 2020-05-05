@@ -45,19 +45,34 @@ const store = new Vuex.Store({
     permissions:localStorage.getItem('permissions'),
     modules:localStorage.getItem('modules'),
     info_modules:{
-      'Can view plan':{
+      'view_plan':{
         name:"Planes",
-        route:"",
-        icon:"ti-briefcase"
+        route:"plans",
+        icon:"ti-direction"
       },
-      'Can view company':{
+      'view_company':{
         name:"Compañías",
         route:"company",
         icon:"ti-briefcase"
       },
-      'Can view image':{
+      'view_image':{
         name:"Cargar Imágenes",
         route:"upload-photo",
+        icon:"ti-briefcase"
+      },
+      'view_pilot':{
+        name:"Pilotos",
+        route:"piloto",
+        icon:"ti-briefcase"
+      },
+      'view_drone':{
+        name:"Drones",
+        route:"drones",
+        icon:"ti-briefcase"
+      },
+      'view_analysis':{
+        name:"Análisis",
+        route:"analysis",
         icon:"ti-briefcase"
       },
     }
@@ -76,7 +91,14 @@ const store = new Vuex.Store({
       };
     }, 
     getModules: state =>{
-      return JSON.parse(state.modules);
+      let modules_new = []
+      JSON.parse(state.modules).forEach(element => {
+        console.log(element);
+        if(state.info_modules.hasOwnProperty(element)){
+          modules_new.push(state.info_modules[element]);
+        }
+      });
+      return modules_new;
     }
   },
   mutations: {
@@ -94,14 +116,16 @@ const store = new Vuex.Store({
     },
     storePermissions(state, permissions){
       state.permissions = []
+      let arr_modules = []
       permissions.forEach(element => {
-        state.permissions.push(element.fields.name)
+        state.permissions.push(element.fields.codename)
       });
-      localStorage.setItem('permissions',state.permissions)
-      state.modules = state.permissions.filter(function(perm){
+      localStorage.setItem('permissions',JSON.stringify(state.permissions))
+      arr_modules = state.permissions.filter(function(perm){
         return perm.includes("view"); 
       });
-      localStorage.setItem('modules',JSON.stringify(state.modules));
+      state.modules = JSON.stringify(arr_modules);
+      localStorage.setItem('modules',JSON.stringify(arr_modules));
     }
   },
   actions: {
@@ -143,18 +167,6 @@ const store = new Vuex.Store({
     // WE WILL ADD THIS LATER
   }
 });
-
-// const store = new Vuex.Store({
-//   state: {
-//     count: 1
-//   },
-//   mutations: {
-//     increment (state) {
-//       state.count++
-//     }
-//   }
-// });
-
 
 // CommonJS
 Vue.use(PaperDashboard);
