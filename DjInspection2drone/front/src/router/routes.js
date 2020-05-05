@@ -16,6 +16,11 @@ import Login from "@/pages/Login.vue";
 import Register from "@/pages/Register.vue";
 import Company from "@/pages/Company.vue";
 import Plan from "@/pages/Plan.vue";
+import Inspection from "@/pages/Inspection.vue";
+import Gallery from "@/pages/Gallery.vue";
+import Drone from "@/pages/Drones.vue";
+import User from "@/pages/Users.vue";
+import Pilot from "@/pages/Pilots.vue";
 
 const routes = [
   {
@@ -29,9 +34,9 @@ const routes = [
         component: Dashboard,
       },
       {
-        path: "stats",
-        name: "stats",
-        component: UserProfile
+        path: "users",
+        name: "users",
+        component: User,
       },
       {
         path: "notifications",
@@ -64,6 +69,11 @@ const routes = [
         component: UploadPhoto
       },
       {
+        path: "profile",
+        name: "profile",
+        component: UserProfile
+      },
+      {
         path: "company",
         name: "company",
         component: Company
@@ -72,6 +82,26 @@ const routes = [
         path: "plans",
         name: "plans",
         component: Plan
+      },
+      {
+        path: "drones",
+        name: "drones",
+        component: Drone
+      },
+      {
+        path: "inspection",
+        name: "inspection",
+        component: Inspection
+      },
+      {
+        path: "gallery",
+        name: "gallery",
+        component: Gallery
+      },
+      {
+        path: "pilot",
+        name: "pilot",
+        component: Pilot
       },
     ]
   },

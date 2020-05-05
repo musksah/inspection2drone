@@ -11,3 +11,8 @@ class Pilot(models.Model):
     start_date = models.DateTimeField(auto_now = False, auto_now_add=True, blank=True, null=True)
     update_date = models.DateTimeField(auto_now = True)
     user_resgister = models.IntegerField(default=0)
+
+    class Meta:
+        permissions = (
+            ("view_profile", "Can view profile"),
+        )

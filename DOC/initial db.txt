@@ -1,0 +1,29 @@
+// Insertar el primer plan //
+
+from plan.models import Plan                                                                                     
+plan = Plan.objects.create(
+    name="Gold",
+    price=0,
+    photos_number=0,
+    user_number=0,
+    analysis_number=0,
+    term_months_number=0,
+    inspection_number=0)                                                                                          
+plan.save()  
+
+// Insertar la primera compañía //
+
+from company.models import Company                                                                                     
+company = Company.objects.create(nit=9856211202,name="SuperConstructora S.A.S",email="info@supercon.com",phone_number=7851256,address="Cra 54 # 23 - 45",plan_id=1)                                                                                          
+company.save()  
+
+
+// Insertar el primer superusuario //
+from authr.models import User
+user = User.objects.create_user('root', password='Sebas1007',company_id=1)
+user.is_superuser=True
+user.is_staff=True
+user.save()
+
+
+

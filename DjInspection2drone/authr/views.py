@@ -9,7 +9,8 @@ from rest_framework.parsers import JSONParser
 from django.contrib.sessions.backends.db import SessionStore
 from rest_framework import generics
 from rest_framework_jwt.views import refresh_jwt_token
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from authr.models import User
 from .serializers import PermissionSerializer
 from django.contrib.auth.models import Permission
 from rest_framework.response import Response
@@ -29,11 +30,11 @@ class PermissionViewSet(viewsets.ModelViewSet):
     # response = {'response': 'Hola mis perros'}
     # return JsonResponse(response, status=200)
     def list(self, request):
-        queryset = Permission.objects.filter(user=request.user)
         # queryset = Permission.objects.all()
         # serializer = PermissionSerializer(queryset)
         # serialized_q = json.dumps(list(queryset), cls=DjangoJSONEncoder)
         # return JsonResponse(list(request.user), safe=False)
+        queryset = Permission.objects.filter(user=request.user)
         qs_json = serializers.serialize('json', queryset)
         return HttpResponse(qs_json, content_type='application/json')
         # return Response(list(queryset),safe=False)
@@ -80,11 +81,13 @@ def create_user(request):
     username_r = data['username']
     password_r = data['pwd']
     email_r = data['email']
+    company_id_r = data['company_id']
     if request.method == 'POST':
         user = User.objects.create_user(
             username = username_r,
             password = password_r,
-            email = email_r
+            email = email_r,
+            company_id = company_id_r
         )
         user.save()
     response = {'response': 'El usuario ha sido creado con éxito!',

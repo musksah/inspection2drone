@@ -3,7 +3,7 @@ from plan.models import Plan
 
 # Create your models here.
 class Company(models.Model):
-    nit = models.IntegerField(unique = True)
+    nit = models.BigIntegerField(unique = True)
     name = models.CharField(max_length = 150)
     email = models.CharField(max_length = 200)
     phone_number = models.IntegerField()

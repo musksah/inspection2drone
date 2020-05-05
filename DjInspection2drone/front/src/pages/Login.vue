@@ -142,15 +142,14 @@ export default {
           this.getPermissions()
             .then(res => {
               console.log(res);
-              swal({
-                type: "success",
-                icon: "success",
-                title: "success",
-                text: "Sí",
-                timer: 3000
-              });
               this.$store.commit("storePermissions", res.data);
-              this.$router.push("/dashboard");
+              if (this.credentials.username == "sebastian"){
+                this.$router.push("/users");
+              }if (this.credentials.username == "operator"){
+                this.$router.push("/upload-photo");
+              }else{
+                this.$router.push("/dashboard");
+              }
             })
             .catch(e => {
               this.loading = false;

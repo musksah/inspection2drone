@@ -1,8 +1,8 @@
 from rest_framework import routers
 
-from .views import CompanyViewSet
+from .views import ImageViewSet
 
 router = routers.SimpleRouter()
-router.register('imgs', CompanyViewSet)
+router.register('images', ImageViewSet)
 
 urlpatterns = router.urls

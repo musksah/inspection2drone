@@ -5,7 +5,7 @@
         <!-- {{ module }} -->
         <!-- <sidebar-link to="/dashboard" name="Dashboard" icon="ti-panel"/> -->
         <!-- <sidebar-link to="/stats" name="User Profile" icon="ti-user"/> -->
-        <sidebar-link v-for="module in modules" :key="module.name" :to="'/'+module.route" :name="module.route" :icon="module.icon"/>
+        <sidebar-link v-for="module in modules" :key="module.name" :to="'/'+module.route" :name="module.name" :icon="module.icon"/>
         <!-- <sidebar-link to="/plans" name="Planes" icon="ti-direction"/>  -->
         <!-- <sidebar-link to="/table-list" name="Table List" icon="ti-view-list-alt"/> -->
         <!-- <sidebar-link to="/icons" name="Icons" icon="ti-pencil-alt2"/> -->
@@ -64,7 +64,6 @@ export default {
     }
   },
   created() {
-    console.log(this.$store.getters.getModules);
     // console.log(JSON.parse(this.$store.state.permissions));
   },
   components: {

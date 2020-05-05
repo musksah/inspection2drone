@@ -12,3 +12,7 @@ class Image(models.Model):
     inspection = models.ForeignKey(Inspection, on_delete=models.CASCADE)
     drone = models.ForeignKey(Drone, on_delete=models.CASCADE)
 
+    class Meta:
+        permissions = (
+            ("view_dashboard", "Can view dashboard"),
+        )

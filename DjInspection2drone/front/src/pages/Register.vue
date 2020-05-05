@@ -88,6 +88,16 @@
                       <span style="color:#C62020;font-weight:700;">Las contraseñas deben coincidir</span>
                     </div>
                   </div>
+                  <div class="form-group row">
+                    <label
+                      for="company_id"
+                      class="col-md-4 col-form-label text-md-right"
+                      style="color:#66615B;"
+                    >Companía</label>
+                    <div class="col-md-6">
+                      <b-form-select v-model="register.company_id" :options="options"></b-form-select>
+                    </div>
+                  </div>
                   <div class="col-md-6 offset-md-4 mb-3">
                     <button type="submit" class="btn btn-primary">Registrarse</button>
                   </div>
@@ -114,7 +124,8 @@ export default {
   data() {
     return {
       register: {},
-      loading: false
+      loading: false,
+      options: [{ value: null, text: "seleccionar..." },{ value:1, text: "SuperConstructora S.A.S" }],
     };
   },
   components: {

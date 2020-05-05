@@ -45,30 +45,60 @@ const store = new Vuex.Store({
     permissions:localStorage.getItem('permissions'),
     modules:localStorage.getItem('modules'),
     info_modules:{
-      'view_plan':{
-        name:"Planes",
-        route:"plans",
-        icon:"ti-direction"
+      'view_dashboard':{
+        name:"Dashboard",
+        route:"dashboard",
+        icon:"ti-dashboard"
+      },
+      'view_dashboard':{
+        name:"Dashboard",
+        route:"dashboard",
+        icon:"ti-dashboard"
+      },
+      'view_user':{
+        name:"Users",
+        route:"users",
+        icon:"ti-user"
+      },
+      'view_inspection':{
+        name:"Inspecciones",
+        route:"inspection",
+        icon:"ti-calendar"
       },
       'view_company':{
         name:"Compañías",
         route:"company",
         icon:"ti-briefcase"
       },
+      'view_plan':{
+        name:"Planes",
+        route:"plans",
+        icon:"ti-notepad"
+      },
       'view_image':{
+        name:"Galería",
+        route:"gallery",
+        icon:"ti-gallery"
+      },
+      'add_image':{
         name:"Cargar Imágenes",
         route:"upload-photo",
-        icon:"ti-briefcase"
+        icon:"ti-gallery"
       },
       'view_pilot':{
         name:"Pilotos",
-        route:"piloto",
-        icon:"ti-briefcase"
+        route:"pilot",
+        icon:"ti-id-badge"
+      },
+      'view_profile':{
+        name:"profile",
+        route:"profile",
+        icon:"ti-id-badge"
       },
       'view_drone':{
         name:"Drones",
         route:"drones",
-        icon:"ti-briefcase"
+        icon:"ti-vector"
       },
       'view_analysis':{
         name:"Análisis",
@@ -122,7 +152,7 @@ const store = new Vuex.Store({
       });
       localStorage.setItem('permissions',JSON.stringify(state.permissions))
       arr_modules = state.permissions.filter(function(perm){
-        return perm.includes("view"); 
+        return perm.includes("view") || perm.includes("add"); 
       });
       state.modules = JSON.stringify(arr_modules);
       localStorage.setItem('modules',JSON.stringify(arr_modules));

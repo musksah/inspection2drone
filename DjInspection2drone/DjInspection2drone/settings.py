@@ -44,17 +44,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
     'analysis',
     'authr',
     'company',
+    'dashboard',
     'drone',
     'image',
     'inspection',
     'plan',
     'pilot',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -103,7 +104,7 @@ WSGI_APPLICATION = 'DjInspection2drone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'inspection2drone',
+        'NAME': 'drone2evolution',
         'USER': 'postgres',
         'PASSWORD': '12345',
         'HOST': '127.0.0.1',
@@ -158,3 +159,5 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
 }
+
+AUTH_USER_MODEL = 'authr.User'

@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Plan
+from .models import Image
 
-class PlanSerializer(serializers.ModelSerializer):
+class ImageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Plan
+        model = Image
         fields = '__all__'
