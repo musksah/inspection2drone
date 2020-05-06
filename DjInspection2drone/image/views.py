@@ -22,22 +22,22 @@ class ImageViewSet(viewsets.ModelViewSet):
 
     def create(self, request):
         # data = JSONParser().parse(request)
+        # data e inserción de la tabla de imágenes
         file_r = request.FILES['file']
-        name_f = request.FILES['file'].name
-        company_id_r = request.POST['company_id']
-        form = ImageUploadForm(request.POST,request.FILES)
+        name_r = request.FILES['file'].name
+        weight_r = request.FILES['file'].size
+        drone_id_r = request.POST['drone_id']
+        inspection_id_r = request.POST['inspection_id']
+        type_image_r = "jepg"
+        url_r = f'media/{name_r}' 
+        image = Image.objects.create(name=name_r,url=url_r,type_image=type_image_r,size=weight_r,weight=0,drone_id=drone_id_r,inspection_id = inspection_id_r)
+        image.save()
+        # Guarda la imagen en la carpeta de imágenes
         fs = FileSystemStorage()
-        filename = fs.save(name_f, file_r)
-        if form.is_valid():
-            response = ["ok"]
-        else:
-            response = form    
-        # company = data["company_id"]
-        # file = data["file"]
-        # image = Image.objects.create()
-        # qs_json = ["Respuesta por el método post"]
-        qs_json = [name_f, company_id_r]
-        return HttpResponse(qs_json, content_type='application/json')        
+        filename = fs.save(name_r, file_r)
+        response = ["ok"]
+        # form = ImageUploadForm(request.POST,request.FILES)
+        return HttpResponse(response, content_type='application/json')        
 
 
 def create_image(request):

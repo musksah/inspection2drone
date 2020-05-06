@@ -10,10 +10,14 @@
               <option value="Pepsi">Pepsi</option>
               <option value="Sprite">Sprite</option>
             </select>-->
-            <b-form-select v-model="form.company_id" :options="options"></b-form-select>
+            <!-- <b-form-select v-model="form.company_id" :options="options"></b-form-select> -->
+            <label for="">Inspección</label>
+            <b-form-select v-model="form.inspection_id" :options="options_inspection"></b-form-select>
+            <label for="" class="mt-2">Drone</label>
+            <b-form-select v-model="form.drone_id" :options="options_drone"></b-form-select>
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-1">
           <!-- <div class="col-md-12">
             <input type="file" @change="processFile($event)" />
           </div>-->
@@ -47,8 +51,11 @@ export default {
       company: "",
       selected: null,
       options: [{ value: null, text: "seleccionar..." }],
+      options_inspection: [{ value: null, text: "seleccionar..." },{ value: 1, text: "06/04/20" }],
+      options_drone: [{ value: null, text: "seleccionar..." },,{ value: 1, text: "Mavic Phantom 4 RTK" }],
       form: {
-        company_id: null,
+        drone_id: null,
+        inspection_id: null,
         file: null
       }
     };
@@ -91,7 +98,8 @@ export default {
       let formData = new FormData();
       formData.append('file', this.form.file);
       // formData.append('company_id', this.form.company_id);
-      formData.append('company_id',this.form.company_id);
+      formData.append('drone_id',this.form.drone_id);
+      formData.append('inspection_id',this.form.inspection_id);
       const axiosInstance = axios.create(this.base_instance_axios);
       axiosInstance({
         url: "/images/",
@@ -101,6 +109,14 @@ export default {
       })
         .then(res => {
           console.log(res);
+          swal({
+            type: "success",
+            icon: "success",
+            title: "Proceso completado",
+            text: "La imagen fue cargada exitosamente",
+            timer: 3000
+          });
+          this.resetForm();
         })
         .catch(e => {
           this.loading = false;
@@ -112,6 +128,11 @@ export default {
             timer: 3000
           });
         });
+    },
+    resetForm(){
+      this.form.drone_id = null;
+      this.form.inspection_id = null;
+      this.form.file = null;
     },
     handleFileUpload(event) {
       this.form.file = event.target.files[0]
