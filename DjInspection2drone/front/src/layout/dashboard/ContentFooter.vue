@@ -4,7 +4,7 @@
       <nav>
         <ul>
           <li>
-            <router-link :to="{path:'/admin'}">Dashboard</router-link>
+            <router-link :to="{path:'/admin'}">Dashboard DroneIAnalyzer</router-link>
           </li>
         </ul>
       </nav>
@@ -17,7 +17,13 @@
   </footer>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      
+    }
+  },
+};
 </script>
 <style>
 </style>

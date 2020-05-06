@@ -8,6 +8,8 @@ from django.http import HttpResponse, JsonResponse
 from django import forms
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
+from os import listdir 
+from os.path import isfile, join 
 
 # Create your views here.
 class ImageViewSet(viewsets.ModelViewSet):
@@ -64,3 +66,9 @@ class ImageUploadForm(forms.Form):
     file = forms.ImageField()
     company_id = forms.CharField()
 # Create your views here.
+
+def view_list_images(request):
+    path = "./front/src/assets/img/inspections/" 
+    onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
+    files = { i : onlyfiles[i] for i in range(0, len(onlyfiles) ) }
+    return JsonResponse(files, status=200)
