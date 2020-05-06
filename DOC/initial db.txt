@@ -35,7 +35,7 @@ import datetime
 from pilot.models import Pilot 
 myStr = "2011-10-01 15:26"
 WHAT_GOES_HERE = datetime.datetime.strptime(myStr, "%Y-%m-%d %H:%M")
-pilot = Pilot.objects.create(name="Andrés", lastname="Rodríguez", email="andre@drone2.com", address="Cra 34 # 34 - 56", birthdate=WHAT_GOES_HERE, phonenumber=7856521)
+pilot = Pilot.objects.create(name="Andrés", lastname="Rodríguez", email="andre@drone2.com", address="Cra 34 # 34 - 56", birthdate=WHAT_GOES_HERE, phonenumber=7856521, user_id=2)
 pilot.save()
 
 // Insertar la primera inspección //
@@ -43,8 +43,12 @@ import datetime
 myStr = "2011-10-01 15:26"
 WHAT_GOES_HERE = datetime.datetime.strptime(myStr, "%Y-%m-%d %H:%M")
 from inspection.models import Inspection 
-inspection = Inspection.objects.create(agreed_date=WHAT_GOES_HERE, performed_date=WHAT_GOES_HERE, state="Pendiente", company_id=1, pilot_id=1)
+inspection = Inspection.objects.create(agreed_date=WHAT_GOES_HERE, performed_date=WHAT_GOES_HERE, state="Pendiente", company_id=1, pilot_id=2)
 inspection.save()
+
+// RESET MIGRATIONS
+find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "*/migrations/*.pyc"  -delete
 
 
 

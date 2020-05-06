@@ -145,7 +145,6 @@ export default {
     getList() {
       this.columnDefs = [];
       this.rowData = [];
-      
       const axiosInstance = axios.create(this.base_instance_axios);
       axiosInstance({
         url: "/plans/",

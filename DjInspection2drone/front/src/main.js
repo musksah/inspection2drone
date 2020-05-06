@@ -50,11 +50,6 @@ const store = new Vuex.Store({
         route:"dashboard",
         icon:"ti-dashboard"
       },
-      'view_dashboard':{
-        name:"Dashboard",
-        route:"dashboard",
-        icon:"ti-dashboard"
-      },
       'view_user':{
         name:"Users",
         route:"users",

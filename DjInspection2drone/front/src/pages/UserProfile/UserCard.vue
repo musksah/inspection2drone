@@ -5,19 +5,14 @@
     </div>
     <div>
       <div class="author">
-        <img class="avatar border-white" src="@/assets/img/faces/face-2.jpg" alt="...">
-        <h4 class="title">Chet Faker
+        <img class="avatar border-white" src="@/assets/img/faces/face-4.jpg" alt="...">
+        <h4 class="title">{{ pilot.name+" "+pilot.lastname }}
           <br>
           <a href="#">
-            <small>@chetfaker</small>
+            <small>@{{username}}</small>
           </a>
         </h4>
       </div>
-      <p class="description text-center">
-        "I like the way you work it
-        <br> No diggity
-        <br> I wanna bag it up"
-      </p>
     </div>
     <hr>
     <div class="text-center">
@@ -33,24 +28,39 @@
   </card>
 </template>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       details: [
         {
-          title: "12",
-          subTitle: "Files"
+          title: "1",
+          subTitle: "Inspección"
         },
         {
-          title: "2GB",
-          subTitle: "Used"
+          title: "0",
+          subTitle: "Fotos"
         },
         {
-          title: "24,6$",
-          subTitle: "Spent"
+          title: "0",
+          subTitle: "Análysis"
         }
-      ]
-    };
+      ],
+      pilot: {
+        company: "",
+        email: "",
+        lastName: "",
+        address: "",
+        city: "",
+        postalCode: "",
+      },
+      allname:"",
+      username:this.$store.state.username,
+      company:"DroneIAnalyzer"
+    }
+  },
+  created() {
+    this.getDataProfile();
   },
   methods: {
     getClasses(index) {
@@ -62,6 +72,19 @@ export default {
       } else {
         return "col-lg-3";
       }
+    },
+    getDataProfile() {
+      const axiosInstance = axios.create(this.$store.getters.getBaseInstanceAxios);
+      axiosInstance({
+        url: "/pilots/",
+        method: "get",
+        params: {}
+      })
+        .then(res => {
+          console.log(res);
+          this.pilot = res.data[0].fields
+        })
+        .catch(e => {});
     }
   }
 };
