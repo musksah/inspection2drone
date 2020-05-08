@@ -64,7 +64,8 @@ export default {
   data() {
     return {
       activeNotifications: false,
-      username: ""
+      username: "",
+      holamundo:"holamundo"
     };
   },
   mounted() {

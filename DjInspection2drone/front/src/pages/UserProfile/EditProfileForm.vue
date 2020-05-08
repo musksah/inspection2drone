@@ -15,6 +15,7 @@
 
             <fg-input type="text"
                       label="Usuario"
+                      :disabled="true"
                       placeholder="Username"
                       v-model="username">
             </fg-input>
@@ -54,7 +55,7 @@
             </fg-input>
           </div>
         </div>
-        <div class="text-center">
+        <div class="text-center mb-3">
           <p-button type="info"
                     round
                     @click.native.prevent="updateProfile">
@@ -72,8 +73,6 @@ export default {
   data() {
     return {
       user: {
-        company: "",
-        username: "",
         email: "",
         name: "",
         lastname: "",
@@ -88,7 +87,25 @@ export default {
   },
   methods: {
     updateProfile() {
-      alert("Your data: " + JSON.stringify(this.user));
+      // alert("Your data: " + JSON.stringify(this.user));
+      console.log(this.user);
+      const axiosInstance = axios.create(this.$store.getters.getBaseInstanceAxios);
+      axiosInstance({
+        url: "pilot/update/",
+        method: "post",
+        data: this.user,
+      })
+        .then(res => {
+          swal({
+                type: "success",
+                icon: "success",
+                title: "Proceso Completado",
+                text: "La información ha sido actualizada",
+                timer: 2000
+              });
+          // debugger
+        })
+        .catch(e => {});
     },
     getDataProfile() {
       const axiosInstance = axios.create(this.$store.getters.getBaseInstanceAxios);

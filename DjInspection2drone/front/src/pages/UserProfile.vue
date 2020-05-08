@@ -15,6 +15,7 @@ import MembersCard from "./UserProfile/MembersCard.vue";
 export default {
   data() {
     return {};
+
   },
   components: {
     EditProfileForm,
