@@ -17,9 +17,10 @@
       </div>
 
       <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-        <li class="nav-item">
+        <b-nav-item href="#prices">Precios</b-nav-item>
+        <!-- <li class="nav-item">
           <a class="nav-link active" style="color:white" href="#">Servicios</a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link active" style="color:white" href="#">Quienes somos</a>
         </li>

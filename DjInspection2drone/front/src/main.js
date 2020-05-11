@@ -30,6 +30,12 @@ import jwt_decode from 'jwt-decode'
 import Vuex from 'vuex'
 // Se importan las tablas a usar
 // import DataTables and DataTablesServer together
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faUserSecret)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
