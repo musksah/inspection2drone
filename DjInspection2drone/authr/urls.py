@@ -5,7 +5,7 @@ from rest_framework import routers
 from .views import PermissionViewSet
 
 urlpatterns = [
-    path('', views.auth_list),
+    path('users/list/', views.UsersView.as_view()),
     path('user/new/', views.create_user),
     path('auth/obtain_token/', obtain_jwt_token),
     path('auth/refresh_token/', refresh_jwt_token),

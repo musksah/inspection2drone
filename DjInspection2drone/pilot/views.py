@@ -25,7 +25,7 @@ class PilotList(APIView):
     def get(self, request, format=None):
         pilots = Pilot.objects.all()
         serializer = PilotSerializer(pilots, many=True)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data, safe=False)
 
     def post(self, request, format=None):
         id=request.user.id

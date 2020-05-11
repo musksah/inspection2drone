@@ -96,12 +96,13 @@ export default {
 
       const axiosInstance = axios.create(this.base_instance_axios);
       axiosInstance({
-        url: "/companies/",
+        url: "/pilot/update/",
         method: "get",
         params: {}
       })
         .then(res => {
           console.log(res);
+          // debugger
           res.data.forEach(item => {
             Object.keys(item).forEach(key => {
               this.columnDefs.push({ headerName: key, field: key });
@@ -109,11 +110,15 @@ export default {
             this.rowData.push({
               id: item.id,
               name: item.name,
-              nit: item.nit,
+              lastname: item.lastname,
               email: item.email,
-              phone_number: item.phone_number,
               address: item.address,
-              plan: item.plan,
+              birthdate: item.birthdate,
+              phonenumber: item.phonenumber,
+              start_date: item.start_date,
+              update_date: item.update_date,
+              user_register: item.user_register,
+              user: item.user,
             });
           });
         })

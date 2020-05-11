@@ -11,15 +11,21 @@ from rest_framework import generics
 from rest_framework_jwt.views import refresh_jwt_token
 # from django.contrib.auth.models import User
 from authr.models import User
-from .serializers import PermissionSerializer
+from .serializers import PermissionSerializer, UserSerializer
 from django.contrib.auth.models import Permission
 from rest_framework.response import Response
 from django.core import serializers
+from rest_framework.views import APIView
+from .permissions import IsAuthorized
 # Create your views here.
 
-# class PostsView(generics.ListAPIView):
-#   authentication_class = (JSONWebTokenAuthentication,) # Don't forget to add a 'comma' after first element to make it a tuple
-#   permission_classes = (IsAuthenticated,)
+class UsersView(APIView):
+  permission_classes = (IsAuthenticated,IsAuthorized,)
+
+  def get(self, request, format=None):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
 
 class PermissionViewSet(viewsets.ModelViewSet):
@@ -39,39 +45,6 @@ class PermissionViewSet(viewsets.ModelViewSet):
         return HttpResponse(qs_json, content_type='application/json')
         # return Response(list(queryset),safe=False)
         # return Response({'response':'hola'})
-
-@csrf_exempt
-def auth_list(request):
-    """
-    Método de autenticación por web request
-    """
-    if request.method == 'GET':
-        # snippets = Snippet.objects.all()
-        # serializer = SnippetSerializer(snippets, many=True)
-        response = {'response': 'Esta petición es por el método get'}
-        return JsonResponse(response, status=200)
-
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        username = data['username']
-        password = data['password']
-        user = authenticate(username=username, password=password)
-        s = SessionStore()
-        s.create()
-        deco = s.model().get_decoded()
-        # s.delete(session_key='2b1189a188b44ad18c35e113ac6ceead')
-        sessioxn = s.exists(session_key='2b1189a188b44ad18c35e113ac6ceead')
-        if user is not None:
-            response = {'response': 'Usuario encontrado',
-                        'username': username, 'decoded': deco}
-            if user.is_authenticated:
-                response.update({'session': True})
-            else:
-                response.update({'session': False})
-        else:
-            response = {
-                'response': 'El usuario no existe en la base de datos', 'session': False}
-        return JsonResponse(response, status=200)
 
 
 @csrf_exempt

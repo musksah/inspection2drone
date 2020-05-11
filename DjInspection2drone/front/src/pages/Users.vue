@@ -11,8 +11,8 @@
         ></ag-grid-vue>
       </div>
     </div>
-    <b-button v-b-modal.modal-1>Registrar Compañía</b-button>
-    <b-modal id="modal-1" title="Registrar Compañía">
+    <b-button v-b-modal.modal-1>Registrar Usuarip</b-button>
+    <b-modal id="modal-1" title="Registrar Usuario">
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
         <b-form-group
           id="input-group-1"
@@ -96,24 +96,28 @@ export default {
 
       const axiosInstance = axios.create(this.base_instance_axios);
       axiosInstance({
-        url: "/companies/",
+        url: "/users/list/",
         method: "get",
         params: {}
       })
         .then(res => {
-          console.log(res);
+          let fields_excluded = ['password','is_superuser','last_login','is_staff','is_active','user_permissions']
+          // console.log(res);
+          // debugger
           res.data.forEach(item => {
             Object.keys(item).forEach(key => {
-              this.columnDefs.push({ headerName: key, field: key });
+              if(!fields_excluded.includes(key)){
+                this.columnDefs.push({ headerName: key, field: key });
+              }
             });
             this.rowData.push({
               id: item.id,
-              name: item.name,
-              nit: item.nit,
+              username: item.username,
+              is_superuser: item.is_superuser,
+              first_name: item.first_name,
+              last_name: item.last_name,
               email: item.email,
-              phone_number: item.phone_number,
-              address: item.address,
-              plan: item.plan,
+              company: item.company,
             });
           });
         })

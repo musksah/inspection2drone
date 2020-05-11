@@ -11,7 +11,7 @@
         ></ag-grid-vue>
       </div>
     </div>
-    <b-button v-b-modal.modal-1>Registrar Compañía</b-button>
+    <b-button v-b-modal.modal-1>Registrar Inspección</b-button>
     <b-modal id="modal-1" title="Registrar Compañía">
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
         <b-form-group
@@ -94,26 +94,28 @@ export default {
       this.columnDefs = [];
       this.rowData = [];
 
-      const axiosInstance = axios.create(this.base_instance_axios);
+      const axiosInstance = axios.create(this.$store.getters.getBaseInstanceAxios);
       axiosInstance({
-        url: "/companies/",
+        url: "/inspection/list/",
         method: "get",
         params: {}
       })
         .then(res => {
           console.log(res);
+          // debugger
           res.data.forEach(item => {
             Object.keys(item).forEach(key => {
               this.columnDefs.push({ headerName: key, field: key });
             });
             this.rowData.push({
               id: item.id,
-              name: item.name,
-              nit: item.nit,
-              email: item.email,
-              phone_number: item.phone_number,
-              address: item.address,
-              plan: item.plan,
+              agreed_date: item.agreed_date,
+              performed_date: item.performed_date,
+              state: item.state,
+              start_date: item.start_date,
+              user_resgister: item.user_resgister,
+              company: item.company,
+              pilot: item.pilot,
             });
           });
         })
