@@ -67,7 +67,6 @@ export default {
     AgGridVue
   },
   beforeMount() {
-    this.base_instance_axios = this.$store.getters.getBaseInstanceAxios
   },
   mounted() {
     this.getList();
@@ -94,9 +93,9 @@ export default {
       this.columnDefs = [];
       this.rowData = [];
 
-      const axiosInstance = axios.create(this.base_instance_axios);
+      const axiosInstance = axios.create(this.$store.getters.getBaseInstanceAxios);
       axiosInstance({
-        url: "/companies/",
+        url: "/drone/list/",
         method: "get",
         params: {}
       })
@@ -108,12 +107,16 @@ export default {
             });
             this.rowData.push({
               id: item.id,
-              name: item.name,
-              nit: item.nit,
-              email: item.email,
-              phone_number: item.phone_number,
-              address: item.address,
-              plan: item.plan,
+              brand: item.brand,
+              model: item.model,
+              color: item.color,
+              line: item.line,
+              serialnumber: item.serialnumber,
+              weight: item.weight,
+              flight_time: item.flight_time,
+              start_date: item.start_date,
+              update_date: item.update_date,
+              user_resgister: item.user_resgister,
             });
           });
         })
