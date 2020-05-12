@@ -9,7 +9,7 @@
         <div class="col-lg-6 text-lg-center btn-wrapper">
           <a
             target="_blank"
-            href="https://twitter.com/creativetim"
+            href="#"
             class="btn btn-neutral btn-icon-only btn-twitter btn-round btn-lg"
             data-toggle="tooltip"
             data-original-title="Follow us"
@@ -18,7 +18,7 @@
           </a>
           <a
             target="_blank"
-            href="https://www.facebook.com/creativetim"
+            href="#"
             class="btn btn-neutral btn-icon-only btn-facebook btn-round btn-lg"
             data-toggle="tooltip"
             data-original-title="Like us"
@@ -27,16 +27,7 @@
           </a>
           <a
             target="_blank"
-            href="https://dribbble.com/creativetim"
-            class="btn btn-neutral btn-icon-only btn-dribbble btn-lg btn-round"
-            data-toggle="tooltip"
-            data-original-title="Follow us"
-          >
-            <i class="fa fa-dribbble"></i>
-          </a>
-          <a
-            target="_blank"
-            href="https://github.com/creativetimofficial"
+            href="#"
             class="btn btn-neutral btn-icon-only btn-github btn-round btn-lg"
             data-toggle="tooltip"
             data-original-title="Star on Github"
@@ -51,7 +42,7 @@
           <div class="copyright">
             &copy; {{year}}
             <a
-              href="#"
+              href="https://github.com/musksah"
               target="_blank"
               rel="noopener"
             >Modify by {{ author }}</a>

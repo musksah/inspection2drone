@@ -21,6 +21,7 @@ import Gallery from "@/pages/Gallery.vue";
 import Drone from "@/pages/Drones.vue";
 import User from "@/pages/Users.vue";
 import Pilot from "@/pages/Pilots.vue";
+import Prices from "@/pages/Prices.vue";
 
 const routes = [
   {
@@ -119,6 +120,11 @@ const routes = [
     path: "/register",
     name: "register",
     component: Register
+  },
+  {
+    path: "/prices",
+    name: "prices",
+    component: Prices
   },
   { path: "*", component: NotFound }
 ];
