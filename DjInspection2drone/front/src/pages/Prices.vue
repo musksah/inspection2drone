@@ -42,7 +42,7 @@
             $60
             <sup>/ mes</sup>
           </p>
-          <a href="#" class="pricing-action">Comprar</a>
+		  <router-link class="pricing-action" :to="{name:'pay'}">Comprar</router-link>
         </div>
       </div>
 
@@ -77,7 +77,7 @@
             $100
             <sup>/ mes</sup>
           </p>
-          <a href="#" class="pricing-action">Comprar</a>
+		  <router-link class="pricing-action" :to="{name:'pay'}">Comprar</router-link>
         </div>
       </div>
 
@@ -112,7 +112,7 @@
             $200
             <sup>/ mes</sup>
           </p>
-          <a href="#" class="pricing-action">Comprar</a>
+          <router-link class="pricing-action" :to="{name:'pay'}">Comprar</router-link>
         </div>
       </div>
     </div>

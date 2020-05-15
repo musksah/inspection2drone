@@ -88,7 +88,7 @@ export default {
       this.$sidebar.displaySidebar(false);
     },
     LogOut() {
-      this.$session.destroy();
+      this.$store.commit("removeToken");
       this.$router.push("/");
     },
   }

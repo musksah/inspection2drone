@@ -11,6 +11,9 @@ class Image(models.Model):
     weight = models.IntegerField()
     inspection = models.ForeignKey(Inspection, on_delete=models.CASCADE)
     drone = models.ForeignKey(Drone, on_delete=models.CASCADE)
+    start_date = models.DateTimeField(auto_now = False, auto_now_add=True, blank=True, null=True)
+    update_date = models.DateTimeField(auto_now = True)
+    user_resgister = models.IntegerField(default=0)
 
     class Meta:
         permissions = (

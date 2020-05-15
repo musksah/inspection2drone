@@ -40,11 +40,8 @@
     </side-bar>
     <div class="main-panel">
       <top-navbar></top-navbar>
-
       <dashboard-content @click.native="toggleSidebar">
-
       </dashboard-content>
-
       <content-footer></content-footer>
     </div>
   </div>

@@ -143,9 +143,11 @@ export default {
             .then(res => {
               console.log(res);
               this.$store.commit("storePermissions", res.data);
-              if (this.credentials.username == "sebastian"){
+              if(this.$route.params.from == "pay"){
+                this.$router.push("/pay");
+              }else if (this.credentials.username == "sebastian"){
                 this.$router.push("/users");
-              }if (this.credentials.username == "operator"){
+              }else if (this.credentials.username == "operator"){
                 this.$router.push("/upload-photo");
               }else{
                 this.$router.push("/dashboard");
@@ -167,14 +169,6 @@ export default {
           this.fail_login = true;
           setTimeout(() => (this.fail_login = false), 3000);
         });
-      // .then(() => {
-      //   this.$router.push("/dashboard");
-      // }).
-      // catch(e => {
-      //   this.loading = false;
-      //   this.fail_login = true;
-      //   setTimeout(() => (this.fail_login = false), 3000);
-      // });
     },
     getPermissions() {
       const axiosInstance = axios.create(

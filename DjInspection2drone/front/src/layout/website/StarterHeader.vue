@@ -113,13 +113,13 @@
           </a>
         </li>
         <li class="nav-item d-none d-lg-block ml-lg-4">
-          <router-link class="btn btn-neutral btn-icon" to="/login" v-if="!logged">
+          <router-link class="btn btn-neutral btn-icon" :to="{name:'login', params:{'from':'login'}}" v-if="!logged">
             <span class="btn-inner--icon" style="color:#66615B;">
               <i class="fa fa-sign-in mr-2" aria-hidden="true"></i>
             </span>
             <span class="nav-link-inner--text gray" style="color:#66615B;">Ingresar</span>
           </router-link>
-          <router-link class="btn btn-neutral btn-icon" to="/dashboard" v-if="logged">
+          <router-link class="btn btn-neutral btn-icon" :to="{name:'dashboard'}" v-if="logged">
             <span class="btn-inner--icon" style="color:#66615B;">
               <i class="fa fa-tachometer mr-2" aria-hidden="true"></i>
             </span>
@@ -142,7 +142,7 @@ export default {
         name: "",
         email: ""
       },
-      show: true
+      show: true,
     };
   },
   mounted() {

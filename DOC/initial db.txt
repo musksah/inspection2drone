@@ -1,24 +1,47 @@
-// Insertar el primer plan //
-
-from plan.models import Plan                                                                                     
-plan = Plan.objects.create(name="Gold",price=0,photos_number=0,user_number=0,analysis_number=0,term_months_number=0,inspection_number=0)                                                                                          
-plan.save()  
-
 // Insertar la primera compañía //
 
 from company.models import Company                                                                                     
-company = Company.objects.create(nit=9856211202,name="SuperConstructora S.A.S",email="info@supercon.com",phone_number=7851256,address="Cra 54 # 23 - 45",plan_id=1)                                                                                          
+company = Company.objects.create(nit=9856211202,name="SuperConstructora S.A.S",email="info@supercon.com",phone_number=7851256,address="Cra 54 # 23 - 45")                                                                                          
 company.save()  
-company = Company.objects.create(nit=9856213402,name="DroneIAnalyzer",email="info@drone2.com",phone_number=7854556,address="Cra 56 # 23 - 66",plan_id=1)                                                                                          
+company = Company.objects.create(nit=9856213402,name="DroneIAnalyzer",email="info@drone2.com",phone_number=7854556,address="Cra 56 # 23 - 66")                                                                                          
 company.save()  
 
 
 // Insertar el primer superusuario //
 from authr.models import User
-user = User.objects.create_user('root', password='Sebas1007',company_id=1)
+user = User.objects.create_user('sebastian', password='Sebas1007',company_id=1)
 user.is_superuser=True
 user.is_staff=True
 user.save()
+
+//Insertar los permisos del superusuario
+
+
+// Insertar el usuario cliente
+from authr.models import User
+user = User.objects.create_user('cliente1', password='12345',company_id=1)
+user.is_superuser=False
+user.is_staff=False
+user.save()
+
+// Insertar los permisos del cliente
+
+// Insertar el usuario operator
+from authr.models import User
+user = User.objects.create_user('operator', password='12345',company_id=2)
+user.is_superuser=False
+user.is_staff=False
+user.save()
+
+// Insertar los permisos del operator
+from 
+
+// Insertar el primer plan //
+
+from plan.models import Plan                                                                                     
+plan = Plan.objects.create(name="Gold",price=0,photos_number=0,user_number=0,analysis_number=0,term_months_number=0)                                                                                          
+plan.save() 
+
 
 // Insertar el primer drone //
 from drone.models import Drone 
@@ -44,7 +67,4 @@ inspection.save()
 // RESET MIGRATIONS
 find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
 find . -path "*/migrations/*.pyc"  -delete
-
-
-
 

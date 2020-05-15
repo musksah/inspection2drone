@@ -1,3 +1,4 @@
+import { store } from "../store";
 import DashboardLayout from "@/layout/dashboard/DashboardLayout.vue";
 // GeneralViews
 import NotFound from "@/pages/NotFoundPage.vue";
@@ -22,6 +23,7 @@ import Drone from "@/pages/Drones.vue";
 import User from "@/pages/Users.vue";
 import Pilot from "@/pages/Pilots.vue";
 import Prices from "@/pages/Prices.vue";
+import Pay from "@/pages/Pay.vue";
 
 const routes = [
   {
@@ -114,7 +116,7 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: Login
+    component: Login,
   },
   {
     path: "/register",
@@ -125,6 +127,24 @@ const routes = [
     path: "/prices",
     name: "prices",
     component: Prices
+  },
+  {
+    path: "/pay",
+    name: "pay",
+    component: Pay,
+    beforeEnter: (to, from, next) => {
+      if(store.state.jwt != null){
+        next()
+      }else{
+        next({ name: 'login',  params: {'from':'pay'} })
+      }
+      // if(typeof(store.state.jwt) != "undefined"){
+      //   next();
+      // }else{
+      //   alert("HOla")
+      //   next(false);
+      // }
+    }
   },
   { path: "*", component: NotFound }
 ];
