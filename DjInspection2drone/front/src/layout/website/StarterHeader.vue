@@ -17,10 +17,9 @@
       </div>-->
 
       <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-        <b-nav-item to="/prices" link-classes="text-white">Precios</b-nav-item>
-        <!-- <li class="nav-item">
-          <a class="nav-link" to="/prices" style="color:white" href="#"></a>
-        </li>-->
+        <li class="nav-item">
+          <a class="nav-link" to="/prices" style="color:white" href="#">Planes y precios</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link active" style="color:white" href="#">Quienes somos</a>
         </li>
@@ -113,6 +112,12 @@
           </a>
         </li>
         <li class="nav-item d-none d-lg-block ml-lg-4">
+          <router-link class="btn btn-neutral btn-icon" :to="{name:'register'}" v-if="!logged">
+            <span class="btn-inner--icon" style="color:#66615B;">
+              <i class="fa fa-credit-card-alt mr-2" aria-hidden="true"></i>
+            </span>
+            <span class="nav-link-inner--text gray" style="color:#66615B;">Comprar</span>
+          </router-link>
           <router-link class="btn btn-neutral btn-icon" :to="{name:'login', params:{'from':'login'}}" v-if="!logged">
             <span class="btn-inner--icon" style="color:#66615B;">
               <i class="fa fa-sign-in mr-2" aria-hidden="true"></i>
@@ -121,7 +126,8 @@
           </router-link>
           <router-link class="btn btn-neutral btn-icon" :to="{name:'dashboard'}" v-if="logged">
             <span class="btn-inner--icon" style="color:#66615B;">
-              <i class="fa fa-tachometer mr-2" aria-hidden="true"></i>
+              <i class="fa fa-file-signature mr-2" aria-hidden="true"></i>
+              <!-- <i class="fa fa-file-signature"></i> -->
             </span>
             <span class="nav-link-inner--text gray" style="color:#66615B;">Ir a Dashboard</span>
           </router-link>

@@ -7,11 +7,13 @@
           class="ag-theme-balham"
           :columnDefs="columnDefs"
           :rowData="rowData"
+          :context="context"
+          :frameworkComponents="frameworkComponents"
           pagination="true"
         ></ag-grid-vue>
       </div>
     </div>
-    <b-button v-b-modal.modal-1>Registrar Usuarip</b-button>
+    <b-button v-b-modal.modal-1>Registrar Usuario</b-button>
     <b-modal id="modal-1" title="Registrar Usuario">
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
         <b-form-group
@@ -60,6 +62,8 @@ export default {
         food: null,
         checked: []
       },
+      frameworkComponents:null,
+      context:null,
       show: true
     };
   },
@@ -68,6 +72,15 @@ export default {
   },
   beforeMount() {
     this.base_instance_axios = this.$store.getters.getBaseInstanceAxios
+    this.context = { componentParent: this };
+    this.frameworkComponents = {
+      squareRenderer: SquareRenderer,
+      cubeRenderer: CubeRenderer,
+      paramsRenderer: ParamsRenderer,
+      currencyRenderer: CurrencyRenderer,
+      childMessageRenderer: ChildMessageRenderer,
+    };
+    
   },
   mounted() {
     this.getList();

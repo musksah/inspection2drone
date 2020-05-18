@@ -15,6 +15,7 @@ import UploadPhoto from "@/pages/UploadPhoto.vue";
 import Home from "@/pages/Home.vue";
 import Login from "@/pages/Login.vue";
 import Register from "@/pages/Register.vue";
+import PlanRegister from "@/pages/PlanRegister.vue";
 import Company from "@/pages/Company.vue";
 import Plan from "@/pages/Plan.vue";
 import Inspection from "@/pages/Inspection.vue";
@@ -121,7 +122,7 @@ const routes = [
   {
     path: "/register",
     name: "register",
-    component: Register
+    component: PlanRegister
   },
   {
     path: "/prices",
