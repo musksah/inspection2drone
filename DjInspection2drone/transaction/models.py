@@ -35,24 +35,17 @@ class Transaction(models.Model):
     company = models.ForeignKey(Company, on_delete = models.CASCADE)
 
 
-class Cancel_Or_Refund_Req(models.model):
-    transaction = models.ForeignKey(Transaction on_delete=models.CASCADE)
-
+class Cancel_Or_Refund_Req(models.Model):
     # PayU Request ID for a request in a Transaction.
     request_id = models.CharField(max_length=100)
-
     # Cancel or Refund or Capture Request
     request_type = models.CharField(max_length=20)
-
-    # Status of webservice call
     status = models.CharField(max_length=15)
     message = models.CharField(max_length=100)
-
     # PayU ID
     mihpayid = models.CharField(max_length=100)
-
     # Bank Reference Number
     bank_ref_num = models.CharField(max_length=100, null=True, blank=True)
-
     amount = models.DecimalField(max_digits=19, decimal_places=6, default=0)
     error_code = models.CharField(max_length=10)
+    transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE)

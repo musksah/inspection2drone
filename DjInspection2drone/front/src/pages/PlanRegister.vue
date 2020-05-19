@@ -3,7 +3,7 @@
     <m-header></m-header>
     <!-- Contenedor -->
     <b-container>
-      <div class="row" style="margin-top:6rem;margin-bottom:4rem;">
+      <div class="row" style="margin-top:5rem;margin-bottom:3rem;">
         <div class="col-md-12">
           <form @submit.stop.prevent="register">
             <h4>Información Personal</h4>
@@ -149,11 +149,6 @@
                   name="radio-sub-component"
                 >
                   <!-- Titulo -->
-                  <h1
-                    class="pricing-table-title text-center"
-                    style="color:#454545;"
-                  >Tabla de Planes DroneIAnalyzer</h1>
-
                   <div class="pricing-table">
                     <h3 class="pricing-title" style="background: #D8D8D8; color:#454545;">Plata</h3>
                     <div class="price">
@@ -180,9 +175,9 @@
                       </li>
                     </ul>
                     <!-- Contratar / Comprar -->
-                    <div class="table-buy" style="text-align:center;">
+                    <div class="table-buy" style="text-align:center;margin-bottom:1rem;">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <b-form-radio value="1">Toggle this custom radio</b-form-radio>
+                        <b-form-radio value="1" class="label-prices">Seleccionar</b-form-radio>
                         <!-- <input
                           type="radio"
                           id="radioPlan3"
@@ -222,8 +217,8 @@
                       </li>
                     </ul>
                     <!-- Contratar / Comprar -->
-                    <div class="table-buy" style="text-align:center;">
-                      <b-form-radio value="2">Toggle this custom radio</b-form-radio>
+                    <div class="table-buy" style="text-align:center;margin-bottom:1rem;">
+                      <b-form-radio value="2" class="label-prices">Seleccionar</b-form-radio>
                       <!-- <input
                           type="radio"
                           id="radioPlan2"
@@ -262,9 +257,9 @@
                       </li>
                     </ul>
                     <!-- Contratar / Comprar -->
-                    <div class="table-buy" style="text-align:center;">
+                    <div class="table-buy" style="text-align:center;margin-bottom:1rem;">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <b-form-radio value="3">Toggle this custom radio</b-form-radio>
+                        <b-form-radio value="3" class="label-prices">Seleccionar</b-form-radio>
                         <!-- <input
                           type="radio"
                           id="radioPlan1"
