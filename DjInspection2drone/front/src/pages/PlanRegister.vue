@@ -5,9 +5,9 @@
     <b-container>
       <div class="row" style="margin-top:6rem;margin-bottom:4rem;">
         <div class="col-md-12">
-          <form>
+          <form @submit.stop.prevent="register">
+            <h4>Información Personal</h4>
             <hr />
-            <h3>Información Personal</h3>
             <div class="row">
               <div class="col-md-6">
                 <label for="registerInputName">Nombres</label>
@@ -17,6 +17,7 @@
                   id="registerInputName"
                   aria-describedby="emailHelp"
                   placeholder="Ingresar nombres"
+                  v-model="form.first_name"
                 />
                 <!-- <small
                     id="emailHelp"
@@ -30,6 +31,7 @@
                   class="form-control"
                   id="registerInputLastName"
                   placeholder="Ingresar apellidos"
+                  v-model="form.last_name"
                 />
               </div>
             </div>
@@ -42,6 +44,7 @@
                   id="registerInputEmail"
                   aria-describedby="emailHelp"
                   placeholder="Ingresar email"
+                  v-model="form.email"
                 />
               </div>
               <div class="col-md-6">
@@ -51,6 +54,7 @@
                   class="form-control"
                   id="registerInputUser"
                   placeholder="Ingresar usuario"
+                  v-model="form.username"
                 />
               </div>
             </div>
@@ -62,6 +66,7 @@
                   class="form-control"
                   id="registerInputPassword"
                   placeholder="Ingresar contraseña"
+                  v-model="form.password"
                 />
               </div>
               <div class="col-md-6">
@@ -71,11 +76,12 @@
                   class="form-control"
                   id="registerInputRePassword"
                   placeholder="Confirmar contraseña"
+                  v-model="form.re_password"
                 />
               </div>
             </div>
-            <hr />
-            <h3>Información de la compañía</h3>
+            <!-- <hr/> -->
+            <h4>Información de la compañía</h4>
             <hr />
             <div class="row">
               <div class="col-md-6">
@@ -85,6 +91,7 @@
                   class="form-control"
                   id="registerInputNit"
                   placeholder="Ingresar nit"
+                  v-model="form.company.nit"
                 />
               </div>
               <div class="col-md-6">
@@ -94,6 +101,7 @@
                   class="form-control"
                   id="registerInputNameCompany"
                   placeholder="Ingresar nombre de compañía"
+                  v-model="form.company.name"
                 />
               </div>
             </div>
@@ -105,6 +113,7 @@
                   class="form-control"
                   id="registerInputEmailCompany"
                   placeholder="Ingresar correo compañía"
+                  v-model="form.company.email"
                 />
               </div>
               <div class="col-md-6">
@@ -114,131 +123,164 @@
                   class="form-control"
                   id="registerInputPhoneNumber"
                   placeholder="Ingresar numero telefónico"
+                  v-model="form.company.phone_number"
                 />
               </div>
             </div>
-            <h3>Elegir un plan</h3>
-            <div class="pricing-wrapper clearfix" style="margin-top:2rem; margin-bottom:3rem;">
-              <!-- Titulo -->
-              <h1
-                class="pricing-table-title text-center"
-                style="color:#454545;"
-              >Tabla de Planes DroneIAnalyzer</h1>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="registerInputAddressCompany">Dirección</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="registerInputAddressCompany"
+                  placeholder="Ingresar dirección compañía"
+                  v-model="form.company.address"
+                />
+              </div>
+            </div>
+            <h4>Elegir un plan</h4>
+            <hr />
+            <div class="pricing-wrapper clearfix" style="margin-bottom:3rem;">
+              <b-form-group label="Radios using sub-components">
+                <b-form-radio-group
+                  id="radio-group-2"
+                  v-model="form.plan"
+                  name="radio-sub-component"
+                >
+                  <!-- Titulo -->
+                  <h1
+                    class="pricing-table-title text-center"
+                    style="color:#454545;"
+                  >Tabla de Planes DroneIAnalyzer</h1>
 
-              <div class="pricing-table">
-                <h3 class="pricing-title" style="background: #D8D8D8; color:#454545;">Plata</h3>
-                <div class="price">
-                  $60
-                  <sup>/ mes</sup>
-                </div>
-                <!-- Lista de Caracteristicas / Propiedades -->
-                <ul class="table-list">
-                  <li>
-                    15
-                    <span>Fotografías / mes</span>
-                  </li>
-                  <li>
-                    3
-                    <span>Inspecciones / mes</span>
-                  </li>
-                  <li>
-                    8
-                    <span>análisis con IA / mes</span>
-                  </li>
-                  <li>
-                    1
-                    <span class="unlimited">Usuario Full</span>
-                  </li>
-                </ul>
-                <!-- Contratar / Comprar -->
-                <div class="table-buy" style="text-align:center;">
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      id="radioPlan3"
-                      name="radioPlan"
-                      class="custom-control-input"
-                    />
-                    <label class="custom-control-label label-prices" for="radioPlan3">Seleccionar</label>
+                  <div class="pricing-table">
+                    <h3 class="pricing-title" style="background: #D8D8D8; color:#454545;">Plata</h3>
+                    <div class="price">
+                      $60
+                      <sup>/ mes</sup>
+                    </div>
+                    <!-- Lista de Caracteristicas / Propiedades -->
+                    <ul class="table-list">
+                      <li>
+                        15
+                        <span>Fotografías / mes</span>
+                      </li>
+                      <li>
+                        3
+                        <span>Inspecciones / mes</span>
+                      </li>
+                      <li>
+                        8
+                        <span>análisis con IA / mes</span>
+                      </li>
+                      <li>
+                        1
+                        <span class="unlimited">Usuario Full</span>
+                      </li>
+                    </ul>
+                    <!-- Contratar / Comprar -->
+                    <div class="table-buy" style="text-align:center;">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <b-form-radio value="1">Toggle this custom radio</b-form-radio>
+                        <!-- <input
+                          type="radio"
+                          id="radioPlan3"
+                          name="radioPlan"
+                          class="custom-control-input"
+                        />
+                        <label
+                          class="custom-control-label label-prices"
+                          for="radioPlan3"
+                        >Seleccionar</label>-->
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="pricing-table">
-                <h3 class="pricing-title" style="background: #E3D83D; color:#454545;">Oro</h3>
-                <div class="price">
-                  $100
-                  <sup>/ mes</sup>
-                </div>
-                <!-- Lista de Caracteristicas / Propiedades -->
-                <ul class="table-list">
-                  <li>
-                    20
-                    <span>Fotografías / mes</span>
-                  </li>
-                  <li>
-                    4
-                    <span>Inspecciones / mes</span>
-                  </li>
-                  <li>
-                    10
-                    <span>análisis con IA / mes</span>
-                  </li>
-                  <li>
-                    2
-                    <span class="unlimited">Usuarios Full</span>
-                  </li>
-                </ul>
-                <!-- Contratar / Comprar -->
-                <div class="table-buy" style="text-align:center;">
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      id="radioPlan2"
-                      name="radioPlan"
-                      class="custom-control-input"
-                    />
-                    <label class="custom-control-label label-prices" for="radioPlan2">Seleccionar</label>
+                  <div class="pricing-table">
+                    <h3 class="pricing-title" style="background: #E3D83D; color:#454545;">Oro</h3>
+                    <div class="price">
+                      $100
+                      <sup>/ mes</sup>
+                    </div>
+                    <!-- Lista de Caracteristicas / Propiedades -->
+                    <ul class="table-list">
+                      <li>
+                        20
+                        <span>Fotografías / mes</span>
+                      </li>
+                      <li>
+                        4
+                        <span>Inspecciones / mes</span>
+                      </li>
+                      <li>
+                        10
+                        <span>análisis con IA / mes</span>
+                      </li>
+                      <li>
+                        2
+                        <span class="unlimited">Usuarios Full</span>
+                      </li>
+                    </ul>
+                    <!-- Contratar / Comprar -->
+                    <div class="table-buy" style="text-align:center;">
+                      <b-form-radio value="2">Toggle this custom radio</b-form-radio>
+                      <!-- <input
+                          type="radio"
+                          id="radioPlan2"
+                          name="radioPlan"
+                          class="custom-control-input"
+                      />-->
+                      <!-- <label
+                          class="custom-control-label label-prices"
+                          for="radioPlan2"
+                      >Seleccionar</label>-->
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="pricing-table">
-                <h3 class="pricing-title" style="background: #58DA77; color:#454545;">PLatino</h3>
-                <div class="price">
-                  $200
-                  <sup>/ mes</sup>
-                </div>
-                <!-- Lista de Caracteristicas / Propiedades -->
-                <ul class="table-list">
-                  <li>
-                    30
-                    <span>Fotografías / mes</span>
-                  </li>
-                  <li>
-                    4
-                    <span>Inspecciones / mes</span>
-                  </li>
-                  <li>
-                    15
-                    <span>análisis con IA / mes</span>
-                  </li>
-                  <li>
-                    4
-                    <span class="unlimited">Usuarios Full</span>
-                  </li>
-                </ul>
-                <!-- Contratar / Comprar -->
-                <div class="table-buy" style="text-align:center;">
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      id="radioPlan1"
-                      name="radioPlan"
-                      class="custom-control-input"
-                    />
-                    <label class="custom-control-label label-prices" for="radioPlan1">Seleccionar</label>
+                  <div class="pricing-table">
+                    <h3 class="pricing-title" style="background: #58DA77; color:#454545;">PLatino</h3>
+                    <div class="price">
+                      $200
+                      <sup>/ mes</sup>
+                    </div>
+                    <!-- Lista de Caracteristicas / Propiedades -->
+                    <ul class="table-list">
+                      <li>
+                        30
+                        <span>Fotografías / mes</span>
+                      </li>
+                      <li>
+                        4
+                        <span>Inspecciones / mes</span>
+                      </li>
+                      <li>
+                        15
+                        <span>análisis con IA / mes</span>
+                      </li>
+                      <li>
+                        4
+                        <span class="unlimited">Usuarios Full</span>
+                      </li>
+                    </ul>
+                    <!-- Contratar / Comprar -->
+                    <div class="table-buy" style="text-align:center;">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <b-form-radio value="3">Toggle this custom radio</b-form-radio>
+                        <!-- <input
+                          type="radio"
+                          id="radioPlan1"
+                          name="radioPlan"
+                          class="custom-control-input"
+                          v-model="form.plan"
+                        />
+                        <label
+                          class="custom-control-label label-prices"
+                          for="radioPlan1"
+                        >Seleccionar</label>-->
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </b-form-radio-group>
+              </b-form-group>
             </div>
             <div class="row">
               <div class="col-md-12 text-center">
@@ -253,12 +295,88 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 import StarterHeader from "@/layout/website/StarterHeader";
 import StarterFooter from "@/layout/website/StarterFooter";
 export default {
   components: {
     "m-header": StarterHeader,
     StarterFooter
+  },
+  data() {
+    return {
+      form: {
+        plan: "",
+        first_name: "",
+        last_name: "",
+        username: "",
+        company: {
+          nit: "",
+          name: "",
+          email: "",
+          phone_number: "",
+          address: ""
+        }
+      }
+    };
+  },
+  methods: {
+    register(evt) {
+      // this.loading = true;
+      const axiosInstance = axios.create(this.$store.getters.getBaseInstanceAxios);
+      axiosInstance({
+        url: "/user/new-customer/",
+        method: "post",
+        data: this.form
+      })
+        .then(res => {
+          console.log(res);
+          swal({
+            type: "success",
+            icon: "success",
+            title: "Usuario Creado",
+            text: "El usuario fue creado exitosamente!",
+            timer: 3000
+          });
+          this.$router.push("/pay");
+          // let fields_excluded = [
+          //   "password",
+          //   "is_superuser",
+          //   "last_login",
+          //   "is_staff",
+          //   "is_active",
+          //   "user_permissions"
+          // ];
+          // console.log(res);
+          // debugger
+          // res.data.forEach(item => {
+          //   Object.keys(item).forEach(key => {
+          //     if (!fields_excluded.includes(key)) {
+          //       this.columnDefs.push({ headerName: key, field: key });
+          //     }
+          //   });
+          //   this.rowData.push({
+          //     id: item.id,
+          //     username: item.username,
+          //     is_superuser: item.is_superuser,
+          //     first_name: item.first_name,
+          //     last_name: item.last_name,
+          //     email: item.email,
+          //     company: item.company
+          //   });
+          // });
+        })
+        .catch(e => {
+          this.loading = false;
+          swal({
+            type: "error",
+            icon: "error",
+            title: "Error",
+            text: "El usaurio no puedo ser creado",
+            timer: 3000
+          });
+        });
+    }
   }
 };
 </script>

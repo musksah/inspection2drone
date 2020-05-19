@@ -6,7 +6,7 @@ class Company(models.Model):
     nit = models.BigIntegerField(unique = True)
     name = models.CharField(max_length = 150)
     email = models.CharField(max_length = 200)
-    phone_number = models.IntegerField()
+    phone_number = models.BigIntegerField()
     address = models.CharField(max_length = 250)
     start_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     update_date = models.DateTimeField(auto_now = True)

@@ -11,6 +11,7 @@ from rest_framework import generics
 from rest_framework_jwt.views import refresh_jwt_token
 # from django.contrib.auth.models import User
 from authr.models import User
+from company.models import Company
 from .serializers import PermissionSerializer, UserSerializer
 from django.contrib.auth.models import Permission
 from rest_framework.response import Response
@@ -19,10 +20,11 @@ from rest_framework.views import APIView
 from .permissions import IsAuthorized
 # Create your views here.
 
-class UsersView(APIView):
-  permission_classes = (IsAuthenticated,IsAuthorized,)
 
-  def get(self, request, format=None):
+class UsersView(APIView):
+    permission_classes = (IsAuthenticated, IsAuthorized,)
+
+    def get(self, request, format=None):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return JsonResponse(serializer.data, safe=False)
@@ -56,10 +58,10 @@ def create_user(request):
     company_id_r = data['company_id']
     if request.method == 'POST':
         user = User.objects.create_user(
-            username = username_r,
-            password = password_r,
-            email = email_r,
-            company_id = company_id_r
+            username=username_r,
+            password=password_r,
+            email=email_r,
+            company_id=company_id_r
         )
         user.save()
     response = {'response': 'El usuario ha sido creado con éxito!',
@@ -67,6 +69,28 @@ def create_user(request):
     return JsonResponse(response, status=200)
 
 
-
-
+@csrf_exempt
+def create_customer(request):
+    data = JSONParser().parse(request)
+    data_company = data['company']
+    company = Company(
+        nit=data_company['nit'],
+        name=data_company['name'],
+        email=data_company['email'],
+        phone_number=data_company['phone_number'],
+        address=data_company['address'],
+    )
+    company.save()
+    id_company = company.id
+    user = User.objects.create_user(
+        username=data['username'],
+        password=data['password'],
+        first_name=data['first_name'],
+        last_name=data['last_name'],
+        email=data['email'],
+        company_id=id_company
+    )
+    user.save()
+    response = {'message': 'El usuario se creó correctamente!','data': data, 'id':id_company}
+    return JsonResponse(response, status=200)
 

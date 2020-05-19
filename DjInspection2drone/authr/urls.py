@@ -7,6 +7,7 @@ from .views import PermissionViewSet
 urlpatterns = [
     path('users/list/', views.UsersView.as_view()),
     path('user/new/', views.create_user),
+    path('user/new-customer/', views.create_customer),
     path('auth/obtain_token/', obtain_jwt_token),
     path('auth/refresh_token/', refresh_jwt_token),
     path('auth/obtain_permissions/', views.PermissionViewSet),
