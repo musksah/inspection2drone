@@ -28,6 +28,7 @@ urlpatterns = [
     path('api/v1.0/',include('pilot.urls')),
     path('api/v1.0/',include('inspection.urls')),
     path('api/v1.0/',include('drone.urls')),
+    path('api/v1.0/',include('transaction.urls')),
 ]
 
 if settings.DEBUG:

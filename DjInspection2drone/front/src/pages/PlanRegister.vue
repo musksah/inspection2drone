@@ -333,7 +333,7 @@ export default {
             text: "El usuario fue creado exitosamente!",
             timer: 3000
           });
-          this.$router.push("/pay");
+          this.$router.push({name:'pay',params:{}});
           // let fields_excluded = [
           //   "password",
           //   "is_superuser",

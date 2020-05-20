@@ -1,47 +1,53 @@
+import datetime, hashlib
+from plan.models import Plan
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import Transaction
+from transaction.models import Transaction
 from django.forms.models import model_to_dict
 from DjInspection2drone import settings
+from django.core import serializers
+from django.http import HttpResponse, JsonResponse
+from rest_framework.parsers import JSONParser
 
 
 class TransactionView(APIView):
 
     def get(self, request, format=None):
+        plan_id = request.query_params['plan']
+        buyer_email = request.user.email
+        plan_list = [plan for plan in Plan.objects.filter(id=plan_id).values()]
+        amount = plan_list[0]['price']
+        now_str = datetime.datetime.now().strftime("%m%d%H%M%S%f")
         #get the last transaction
-        last_transaction = Transaction.objects.latest('id')
-        data_transaction = model_to_dict(user_last,fields=['id'])
-        if len(data_transaction) > 0:
-            transaction_last = data_transaction
-        else:
-            reference_code = "P0001"
-        serializer = UserSerializer(Trans-action, many=True)
-        reference_code = 0
+        try:
+            last_transaction = Transaction.objects.latest('id')
+            data_transaction = model_to_dict(last_transaction,fields=['id'])
+            reference_code = f"P{last_transaction.id}{now_str}" 
+        except:
+            reference_code = "P1"+now_str
         # Make the signature md5
         api_key = settings.API_KEY_PAYU
         merchant_id = settings.MERCHANT_ID
-        reference_code = self.generateReferenceCode()
-        str_pay = "4Vj8eK4rloUd272L48hsrarnUA~508029~P0001~20000~COP"
-        value = data['value']
-        result_p = hashlib.md5(str_pay.encode())
+        currency = settings.CURRENCY
+        str_signature = f"{api_key}~{merchant_id}~{reference_code}~{amount}~{currency}"
+        result_p = hashlib.md5(str_signature.encode())
         signature = result_p.hexdigest()
         # Dict of payu data
         data_pay_u = {
             "merchantId":merchant_id,
             "accountId":settings.ACCOUNT_ID,
             "description":settings.DESCRIPTION_P,
-            "amount":settings.DESCRIPTION_P,
+            "referenceCode":reference_code,
+            "amount":amount,
             "tax":0,
             "taxReturnBase":0,
             "currency":settings.CURRENCY,
             "signature":signature,
-            "test":0,
-            "buyerEmail":0,
+            "test":1,
+            "buyerEmail":buyer_email,
             "responseUrl":settings.RESPONSE_URL,
             "confirmationUrl":settings.CONFIRMATION_URL,
         }
-        return JsonResponse(serializer.data, safe=False)
+        return JsonResponse({'data_pay_u':data_pay_u}, safe=False)
     
-    def generateReferenceCode(self, id):
-        pass
 # Create your views here.

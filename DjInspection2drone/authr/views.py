@@ -23,7 +23,6 @@ from .permissions import IsAuthorized
 
 class UsersView(APIView):
     permission_classes = (IsAuthenticated, IsAuthorized,)
-
     def get(self, request, format=None):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
@@ -35,18 +34,11 @@ class PermissionViewSet(viewsets.ModelViewSet):
     # serializer_class = PermissionSerializer
     # serializer_class = PermissionSerializer
     # permission_classes = (IsAuthenticated,)
-    # response = {'response': 'Hola mis perros'}
     # return JsonResponse(response, status=200)
     def list(self, request):
-        # queryset = Permission.objects.all()
-        # serializer = PermissionSerializer(queryset)
-        # serialized_q = json.dumps(list(queryset), cls=DjangoJSONEncoder)
-        # return JsonResponse(list(request.user), safe=False)
         queryset = Permission.objects.filter(user=request.user)
         qs_json = serializers.serialize('json', queryset)
         return HttpResponse(qs_json, content_type='application/json')
-        # return Response(list(queryset),safe=False)
-        # return Response({'response':'hola'})
 
 
 @csrf_exempt

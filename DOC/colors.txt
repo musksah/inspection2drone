@@ -2,3 +2,9 @@
 #455d7a - azul claro
 #f95959 - rojo claro
 #e3e3e3 - gris
+
+Precios de los planes:
+
+Plata: 6660000 
+Oro: 18386400 
+Platino: 48600000 
