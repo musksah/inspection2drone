@@ -169,7 +169,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'front/src/assets/img/inspections')
 #Config Pay U
 MERCHANT_ID = 508029
 ACCOUNT_ID = 512321
-RESPONSE_URL = "http://localhost:8080/responsepay"
+RESPONSE_URL = "http://localhost:8080/#/pay-response"
 CONFIRMATION_URL = "http://localhost:8080/confirmationpay"
 DESCRIPTION_P = "Pago de Planes"
 CURRENCY = "COP"

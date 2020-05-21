@@ -19,10 +19,6 @@
                   placeholder="Ingresar nombres"
                   v-model="form.first_name"
                 />
-                <!-- <small
-                    id="emailHelp"
-                    class="form-text text-muted"
-                >We'll never share your email with anyone else.</small>-->
               </div>
               <div class="col-md-6">
                 <label for="registerInputLastName">Apellidos</label>
@@ -55,6 +51,7 @@
                   id="registerInputUser"
                   placeholder="Ingresar usuario"
                   v-model="form.username"
+                  required
                 />
               </div>
             </div>
@@ -67,6 +64,7 @@
                   id="registerInputPassword"
                   placeholder="Ingresar contraseña"
                   v-model="form.password"
+                  required
                 />
               </div>
               <div class="col-md-6">
@@ -147,12 +145,13 @@
                   id="radio-group-2"
                   v-model="form.plan"
                   name="radio-sub-component"
+                  required
                 >
                   <!-- Titulo -->
                   <div class="pricing-table">
                     <h3 class="pricing-title" style="background: #D8D8D8; color:#454545;">Plata</h3>
                     <div class="price">
-                      $60
+                      $2220000
                       <sup>/ mes</sup>
                     </div>
                     <!-- Lista de Caracteristicas / Propiedades -->
@@ -177,7 +176,7 @@
                     <!-- Contratar / Comprar -->
                     <div class="table-buy" style="text-align:center;margin-bottom:1rem;">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <b-form-radio value="1" class="label-prices">Seleccionar</b-form-radio>
+                        <b-form-radio :value="{id:1,name:'Plata',price:2220000,photos:15,inspections:3,analysis:8,users:1, backgroundcolor:'#D8D8D8'}" class="label-prices">Seleccionar</b-form-radio>
                         <!-- <input
                           type="radio"
                           id="radioPlan3"
@@ -194,7 +193,7 @@
                   <div class="pricing-table">
                     <h3 class="pricing-title" style="background: #E3D83D; color:#454545;">Oro</h3>
                     <div class="price">
-                      $100
+                      $3260000
                       <sup>/ mes</sup>
                     </div>
                     <!-- Lista de Caracteristicas / Propiedades -->
@@ -218,7 +217,7 @@
                     </ul>
                     <!-- Contratar / Comprar -->
                     <div class="table-buy" style="text-align:center;margin-bottom:1rem;">
-                      <b-form-radio value="2" class="label-prices">Seleccionar</b-form-radio>
+                      <b-form-radio :value="{id:2,name:'Oro',price:3260000,photos:20,inspections:4,analysis:10,users:2, backgroundcolor:'#E3D83D'}" class="label-prices">Seleccionar</b-form-radio>
                       <!-- <input
                           type="radio"
                           id="radioPlan2"
@@ -234,7 +233,7 @@
                   <div class="pricing-table">
                     <h3 class="pricing-title" style="background: #58DA77; color:#454545;">PLatino</h3>
                     <div class="price">
-                      $200
+                      $4500000
                       <sup>/ mes</sup>
                     </div>
                     <!-- Lista de Caracteristicas / Propiedades -->
@@ -259,18 +258,7 @@
                     <!-- Contratar / Comprar -->
                     <div class="table-buy" style="text-align:center;margin-bottom:1rem;">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <b-form-radio value="3" class="label-prices">Seleccionar</b-form-radio>
-                        <!-- <input
-                          type="radio"
-                          id="radioPlan1"
-                          name="radioPlan"
-                          class="custom-control-input"
-                          v-model="form.plan"
-                        />
-                        <label
-                          class="custom-control-label label-prices"
-                          for="radioPlan1"
-                        >Seleccionar</label>-->
+                        <b-form-radio :value="{id:3,name:'Platino',price:4500000,photos:30,inspections:4,analysis:15,users:4,backgroundcolor:'#58DA77'}" class="label-prices">Seleccionar</b-form-radio>
                       </div>
                     </div>
                   </div>
@@ -301,39 +289,41 @@ export default {
   data() {
     return {
       form: {
-        plan: "",
+        plan:null,
         first_name: "",
         last_name: "",
         username: "",
+        password: "",
         company: {
           nit: "",
           name: "",
           email: "",
           phone_number: "",
           address: ""
-        }
-      }
+        },
+      },
     };
   },
   methods: {
     register(evt) {
+      console.log(this.form.plan);
       // this.loading = true;
-      const axiosInstance = axios.create(this.$store.getters.getBaseInstanceAxios);
-      axiosInstance({
-        url: "/user/new-customer/",
-        method: "post",
-        data: this.form
-      })
-        .then(res => {
-          console.log(res);
-          swal({
-            type: "success",
-            icon: "success",
-            title: "Usuario Creado",
-            text: "El usuario fue creado exitosamente!",
-            timer: 3000
-          });
-          this.$router.push({name:'pay',params:{}});
+      // const axiosInstance = axios.create(this.$store.getters.getBaseInstanceAxios);
+      // axiosInstance({
+      //   url: "/user/new-customer/",
+      //   method: "post",
+      //   data: this.form
+      // })
+      //   .then(res => {
+      //     console.log(res);
+      //     swal({
+      //       type: "success",
+      //       icon: "success",
+      //       title: "Usuario Creado",
+      //       text: "El usuario fue creado exitosamente!",
+      //       timer: 3000
+      //     });
+      //     this.$router.push({name:'pay',params:{plan:this.plan}});
           // let fields_excluded = [
           //   "password",
           //   "is_superuser",
@@ -360,17 +350,18 @@ export default {
           //     company: item.company
           //   });
           // });
-        })
-        .catch(e => {
-          this.loading = false;
-          swal({
-            type: "error",
-            icon: "error",
-            title: "Error",
-            text: "El usaurio no puedo ser creado",
-            timer: 3000
-          });
-        });
+        // })
+        // .catch(e => {
+        //   this.loading = false;
+        //   swal({
+        //     type: "error",
+        //     icon: "error",
+        //     title: "Error",
+        //     text: "El usaurio no puedo ser creado",
+        //     timer: 3000
+        //   });
+        // });
+        this.$router.push({name:'pay',params:{plan:this.form.plan,credentials:{username:this.form.username, password:this.form.password}}});
     }
   }
 };

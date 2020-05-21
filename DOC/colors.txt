@@ -5,6 +5,7 @@
 
 Precios de los planes:
 
-Plata: 6660000 
-Oro: 18386400 
-Platino: 48600000 
+Plata:$ 6660000  $ 2220000 
+Oro:$ 18386400   $ 3260000 
+Platino:$ 48600000  $ 4500000 
+

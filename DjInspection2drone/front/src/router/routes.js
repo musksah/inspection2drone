@@ -25,6 +25,7 @@ import User from "@/pages/Users.vue";
 import Pilot from "@/pages/Pilots.vue";
 import Prices from "@/pages/Prices.vue";
 import Pay from "@/pages/Pay.vue";
+import ResponsePay from "@/pages/ResponsePay";
 
 const routes = [
   {
@@ -130,21 +131,21 @@ const routes = [
     component: Prices
   },
   {
+    path: "/pay-response",
+    name: "pay-response",
+    component: ResponsePay
+  },
+  {
     path: "/pay",
     name: "pay",
     component: Pay,
     beforeEnter: (to, from, next) => {
-      if(store.state.jwt != null){
+      let plan = to.params.plan
+      if(store.state.jwt != null && typeof plan  !== "undefined" && plan != null){
         next()
       }else{
-        next({ name: 'login',  params: {'from':'pay'} })
+        next({ name: 'register',  params: {'from':'pay'} })
       }
-      // if(typeof(store.state.jwt) != "undefined"){
-      //   next();
-      // }else{
-      //   alert("HOla")
-      //   next(false);
-      // }
     }
   },
   { path: "*", component: NotFound }

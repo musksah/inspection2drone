@@ -39,8 +39,12 @@ from
 // Insertar el primer plan //
 
 from plan.models import Plan                                                                                     
-plan = Plan.objects.create(name="Gold",price=0,photos_number=0,user_number=0,analysis_number=0,term_months_number=0)                                                                                          
+plan = Plan.objects.create(id=1,name="Plata",price=2220000,photos_number=15,inspection_number=3,user_number=1,analysis_number=8,term_months_number=3)                                                                                          
+plan.save()
+plan = Plan.objects.create(id=2,name="Oro",price=3260000,photos_number=20,inspection_number=3,user_number=2,analysis_number=10,term_months_number=6)                                                                                          
 plan.save() 
+plan = Plan.objects.create(id=3,name="Platino",price=4500000,photos_number=30,inspection_number=4,user_number=4,analysis_number=15,term_months_number=12)                                                                                          
+plan.save()  
 
 
 // Insertar el primer drone //
