@@ -6,9 +6,9 @@
       <div class="row" style="margin-top:5rem;margin-bottom:3rem;">
         <div class="col-md-12">
           <form @submit.stop.prevent="register">
-            <h4>Información Personal</h4>
-            <hr />
-            <div class="row">
+            <h4 v-if="!logged">Información Personal</h4>
+            <hr v-if="!logged" />
+            <div class="row" v-if="!logged">
               <div class="col-md-6">
                 <label for="registerInputName">Nombres</label>
                 <input
@@ -31,7 +31,7 @@
                 />
               </div>
             </div>
-            <div class="row">
+            <div class="row" v-if="!logged">
               <div class="col-md-6">
                 <label for="registerInputEmail">Correo Electrónico</label>
                 <input
@@ -55,7 +55,7 @@
                 />
               </div>
             </div>
-            <div class="row">
+            <div class="row" v-if="!logged">
               <div class="col-md-6">
                 <label for="registerInputPassword">Contraseña</label>
                 <input
@@ -79,9 +79,9 @@
               </div>
             </div>
             <!-- <hr/> -->
-            <h4>Información de la compañía</h4>
-            <hr />
-            <div class="row">
+            <h4 v-if="!logged">Información de la compañía</h4>
+            <hr v-if="!logged"/>
+            <div class="row" v-if="!logged">
               <div class="col-md-6">
                 <label for="registerInputNit">Nit</label>
                 <input
@@ -103,7 +103,7 @@
                 />
               </div>
             </div>
-            <div class="row">
+            <div class="row" v-if="!logged">
               <div class="col-md-6">
                 <label for="registerInputEmailCompany">Correo Electrónico Company</label>
                 <input
@@ -125,7 +125,7 @@
                 />
               </div>
             </div>
-            <div class="row">
+            <div class="row" v-if="!logged"> 
               <div class="col-md-6">
                 <label for="registerInputAddressCompany">Dirección</label>
                 <input
@@ -267,7 +267,7 @@
             </div>
             <div class="row">
               <div class="col-md-12 text-center">
-                <input type="submit" value="Registrar y Pasar al Pago" class="btn btn-primary" />
+                <input type="submit" value="Pasar al Pago" class="btn btn-primary" />
               </div>
             </div>
           </form>
@@ -302,67 +302,59 @@ export default {
           address: ""
         },
       },
+      logged:false
     };
+  },
+  mounted() {
+    this.checkLoggedIn();
   },
   methods: {
     register(evt) {
+      if (this.logged) {
+        this.registerPlan()
+      }else{
+        this.registerAll()
+      }
+    },
+    registerPlan(){
+      this.$router.push({name:'pay',params:{plan:this.form.plan}});
+    },
+    registerAll(){
       console.log(this.form.plan);
-      // this.loading = true;
-      // const axiosInstance = axios.create(this.$store.getters.getBaseInstanceAxios);
-      // axiosInstance({
-      //   url: "/user/new-customer/",
-      //   method: "post",
-      //   data: this.form
-      // })
-      //   .then(res => {
-      //     console.log(res);
-      //     swal({
-      //       type: "success",
-      //       icon: "success",
-      //       title: "Usuario Creado",
-      //       text: "El usuario fue creado exitosamente!",
-      //       timer: 3000
-      //     });
-      //     this.$router.push({name:'pay',params:{plan:this.plan}});
-          // let fields_excluded = [
-          //   "password",
-          //   "is_superuser",
-          //   "last_login",
-          //   "is_staff",
-          //   "is_active",
-          //   "user_permissions"
-          // ];
-          // console.log(res);
-          // debugger
-          // res.data.forEach(item => {
-          //   Object.keys(item).forEach(key => {
-          //     if (!fields_excluded.includes(key)) {
-          //       this.columnDefs.push({ headerName: key, field: key });
-          //     }
-          //   });
-          //   this.rowData.push({
-          //     id: item.id,
-          //     username: item.username,
-          //     is_superuser: item.is_superuser,
-          //     first_name: item.first_name,
-          //     last_name: item.last_name,
-          //     email: item.email,
-          //     company: item.company
-          //   });
-          // });
-        // })
-        // .catch(e => {
-        //   this.loading = false;
-        //   swal({
-        //     type: "error",
-        //     icon: "error",
-        //     title: "Error",
-        //     text: "El usaurio no puedo ser creado",
-        //     timer: 3000
-        //   });
-        // });
-        this.$router.push({name:'pay',params:{plan:this.form.plan,credentials:{username:this.form.username, password:this.form.password}}});
-    }
+      this.loading = true;
+      const axiosInstance = axios.create(this.$store.getters.getBaseInstanceAxios);
+      axiosInstance({
+        url: "/user/new-customer/",
+        method: "post",
+        data: this.form
+      })
+        .then(res => {
+          console.log(res);
+          swal({
+            type: "success",
+            icon: "success",
+            title: "Registro Exitoso",
+            text: "El usuario fue creado exitosamente!",
+            timer: 3000
+          });
+          this.$router.push({name:'pay',params:{plan:this.form.plan,credentials:{username:this.form.username, password:this.form.password}}});
+        })
+        .catch(e => {
+          this.loading = false;
+          swal({
+            type: "error",
+            icon: "error",
+            title: "Error",
+            text: "El usaurio no puedo ser creado",
+            timer: 3000
+          });
+        });
+    },
+    checkLoggedIn() {
+      if (this.$store.state.jwt != null) {
+        this.logged = true;
+      }
+    },
   }
 };
 </script>

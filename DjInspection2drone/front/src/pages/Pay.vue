@@ -100,7 +100,8 @@ export default {
       credentials:{
         username:"",
         password:""
-      }
+      },
+      logged:false
     };
   },
   components: {
@@ -111,6 +112,7 @@ export default {
     this.base_instance_axios = this.$store.getters.getBaseInstanceAxios;
   },
   mounted() {
+    this.checkLoggedIn();
     this.plan = this.$route.params.plan;
     this.credentials = this.$route.params.credentials;
     console.log("Mounted");
@@ -119,7 +121,9 @@ export default {
     // console.log(this.credentials.username);
     // console.log(this.credentials.password);
     this.getPayUInformation();
-    this.Login();
+    if(!this.logged){
+      this.Login();
+    }
   },
   methods: {
     getPayUInformation() {
@@ -186,7 +190,12 @@ export default {
         method: "get",
         params: {}
       });
-    }
+    },
+    checkLoggedIn() {
+      if (this.$store.state.jwt != null) {
+        this.logged = true;
+      }
+    },
   }
 };
 </script>

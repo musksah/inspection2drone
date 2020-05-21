@@ -159,7 +159,7 @@ export default {
             timer: 3000
           });
         });
-    }
+    },
   }
 };
 </script>

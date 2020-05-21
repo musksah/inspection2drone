@@ -99,20 +99,8 @@
             <span class="nav-link-inner--text d-lg-none">Twitter</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a
-            class="nav-link nav-link-icon"
-            href="#"
-            target="_blank"
-            data-toggle="tooltip"
-            title="Star us on Github"
-          >
-            <i class="fa fa-github" style="color:white;"></i>
-            <span class="nav-link-inner--text d-lg-none">Github</span>
-          </a>
-        </li>
         <li class="nav-item d-none d-lg-block ml-lg-4">
-          <router-link class="btn btn-neutral btn-icon" :to="{name:'register'}" v-if="!logged">
+          <router-link class="btn btn-neutral btn-icon" :to="{name:'register'}" v-if="logged">
             <span class="btn-inner--icon" style="color:#66615B;">
               <i class="fa fa-credit-card-alt mr-2" aria-hidden="true"></i>
             </span>
@@ -126,7 +114,7 @@
           </router-link>
           <router-link class="btn btn-neutral btn-icon" :to="{name:'dashboard'}" v-if="logged">
             <span class="btn-inner--icon" style="color:#66615B;">
-              <i class="fa fa-file-signature mr-2" aria-hidden="true"></i>
+              <i class="fa fa-sign-in mr-2" aria-hidden="true"></i>
               <!-- <i class="fa fa-file-signature"></i> -->
             </span>
             <span class="nav-link-inner--text gray" style="color:#66615B;">Ir a Dashboard</span>
@@ -152,7 +140,7 @@ export default {
     };
   },
   mounted() {
-    // this.checkLoggedIn();
+    this.checkLoggedIn();
   },
   components: {
     BaseNav,
@@ -160,10 +148,8 @@ export default {
   },
   methods: {
     checkLoggedIn() {
-      this.$session.start();
-      if (this.$session.has("token")) {
+      if (this.$store.state.jwt != null) {
         this.logged = true;
-        console.log("tienes sesión");
       }
     },
     onSubmit(evt) {
