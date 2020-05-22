@@ -80,7 +80,7 @@
             </div>
             <!-- <hr/> -->
             <h4 v-if="!logged">Información de la compañía</h4>
-            <hr v-if="!logged"/>
+            <hr v-if="!logged" />
             <div class="row" v-if="!logged">
               <div class="col-md-6">
                 <label for="registerInputNit">Nit</label>
@@ -125,7 +125,7 @@
                 />
               </div>
             </div>
-            <div class="row" v-if="!logged"> 
+            <div class="row" v-if="!logged">
               <div class="col-md-6">
                 <label for="registerInputAddressCompany">Dirección</label>
                 <input
@@ -176,7 +176,10 @@
                     <!-- Contratar / Comprar -->
                     <div class="table-buy" style="text-align:center;margin-bottom:1rem;">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <b-form-radio :value="{id:1,name:'Plata',price:2220000,photos:15,inspections:3,analysis:8,users:1, backgroundcolor:'#D8D8D8'}" class="label-prices">Seleccionar</b-form-radio>
+                        <b-form-radio
+                          :value="{id:1,name:'Plata',price:2220000,photos:15,inspections:3,analysis:8,users:1, backgroundcolor:'#D8D8D8'}"
+                          class="label-prices"
+                        >Seleccionar</b-form-radio>
                         <!-- <input
                           type="radio"
                           id="radioPlan3"
@@ -217,7 +220,10 @@
                     </ul>
                     <!-- Contratar / Comprar -->
                     <div class="table-buy" style="text-align:center;margin-bottom:1rem;">
-                      <b-form-radio :value="{id:2,name:'Oro',price:3260000,photos:20,inspections:4,analysis:10,users:2, backgroundcolor:'#E3D83D'}" class="label-prices">Seleccionar</b-form-radio>
+                      <b-form-radio
+                        :value="{id:2,name:'Oro',price:3260000,photos:20,inspections:4,analysis:10,users:2, backgroundcolor:'#E3D83D'}"
+                        class="label-prices"
+                      >Seleccionar</b-form-radio>
                       <!-- <input
                           type="radio"
                           id="radioPlan2"
@@ -258,7 +264,10 @@
                     <!-- Contratar / Comprar -->
                     <div class="table-buy" style="text-align:center;margin-bottom:1rem;">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <b-form-radio :value="{id:3,name:'Platino',price:4500000,photos:30,inspections:4,analysis:15,users:4,backgroundcolor:'#58DA77'}" class="label-prices">Seleccionar</b-form-radio>
+                        <b-form-radio
+                          :value="{id:3,name:'Platino',price:4500000,photos:30,inspections:4,analysis:15,users:4,backgroundcolor:'#58DA77'}"
+                          class="label-prices"
+                        >Seleccionar</b-form-radio>
                       </div>
                     </div>
                   </div>
@@ -289,7 +298,7 @@ export default {
   data() {
     return {
       form: {
-        plan:null,
+        plan: null,
         first_name: "",
         last_name: "",
         username: "",
@@ -300,29 +309,36 @@ export default {
           email: "",
           phone_number: "",
           address: ""
-        },
+        }
       },
-      logged:false
+      logged: false,
+      credentials:{
+        username:"",
+        password:""
+      },
+      base_instance_axios: {},
     };
   },
   mounted() {
+    this.base_instance_axios = this.$store.getters.getBaseInstanceAxios;
     this.checkLoggedIn();
   },
   methods: {
     register(evt) {
       if (this.logged) {
-        this.registerPlan()
-      }else{
-        this.registerAll()
+        this.registerPlan();
+      } else {
+        this.registerAll();
       }
     },
-    registerPlan(){
-      this.$router.push({name:'pay',params:{plan:this.form.plan}});
+    registerPlan() {
+      this.$router.push({ name: "pay", params: { plan: this.form.plan } });
     },
-    registerAll(){
+    registerAll() {
       console.log(this.form.plan);
-      this.loading = true;
-      const axiosInstance = axios.create(this.$store.getters.getBaseInstanceAxios);
+      const axiosInstance = axios.create(
+        this.base_instance_axios
+      );
       axiosInstance({
         url: "/user/new-customer/",
         method: "post",
@@ -337,10 +353,9 @@ export default {
             text: "El usuario fue creado exitosamente!",
             timer: 3000
           });
-          this.$router.push({name:'pay',params:{plan:this.form.plan,credentials:{username:this.form.username, password:this.form.password}}});
+          this.Login();
         })
         .catch(e => {
-          this.loading = false;
           swal({
             type: "error",
             icon: "error",
@@ -350,11 +365,62 @@ export default {
           });
         });
     },
+    Login() {
+      // this.loading = true;
+      this.$store
+        .dispatch("obtainToken", {
+          username: this.form.username,
+          password: this.form.password
+        })
+        .then(response => {
+          this.$store.commit("updateToken", response.data.token);
+          this.$store.commit("updateUsername", this.form.username);
+          this.getPermissions()
+            .then(res => {
+              this.$store.commit("storePermissions", res.data);
+              this.$router.push({
+                name: "pay",
+                params: {
+                  plan: this.form.plan,
+                  credentials: {
+                    username: this.form.username,
+                    password: this.form.password
+                  }
+                }
+              });
+            })
+            .catch(e => {
+              this.loading = false;
+              swal({
+                type: "error",
+                icon: "error",
+                title: "Error",
+                text: "Los permisos no fueron traídos",
+                timer: 3000
+              });
+            });
+        })
+        .catch(error => {
+          this.loading = false;
+          this.fail_login = true;
+          setTimeout(() => (this.fail_login = false), 3000);
+        });
+    },
+    getPermissions() {
+      const axiosInstance = axios.create(
+        this.$store.getters.getBaseInstanceAxios
+      );
+      return axiosInstance({
+        url: "/permissions/",
+        method: "get",
+        params: {}
+      });
+    },
     checkLoggedIn() {
       if (this.$store.state.jwt != null) {
         this.logged = true;
       }
-    },
+    }
   }
 };
 </script>

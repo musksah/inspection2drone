@@ -16,6 +16,7 @@ export const store = new Vuex.Store({
         },
         permissions: localStorage.getItem('permissions'),
         modules: localStorage.getItem('modules'),
+        plan_tranc_id: localStorage.getItem('plan_id'),
         info_modules: {
             'view_dashboard': {
                 name: "Dashboard",
@@ -99,6 +100,10 @@ export const store = new Vuex.Store({
         }
     },
     mutations: {
+        updatePlan(state, plan_id) {
+            localStorage.setItem('plan_id', plan_id);
+            state.plan_tranc_id = plan_id;
+        },
         updateToken(state, newToken) {
             localStorage.setItem('t', newToken);
             state.jwt = newToken;
@@ -161,6 +166,5 @@ export const store = new Vuex.Store({
                 }
             }
         }
-        // WE WILL ADD THIS LATER
     }
 });

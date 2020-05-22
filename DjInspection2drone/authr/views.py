@@ -65,6 +65,7 @@ def create_user(request):
 def create_customer(request):
     data = JSONParser().parse(request)
     data_company = data['company']
+    #Insertar la información de la compañía
     company = Company(
         nit=data_company['nit'],
         name=data_company['name'],
@@ -74,6 +75,7 @@ def create_customer(request):
     )
     company.save()
     id_company = company.id
+    #Insertar el usuario
     user = User.objects.create_user(
         username=data['username'],
         password=data['password'],
@@ -82,7 +84,9 @@ def create_customer(request):
         email=data['email'],
         company_id=id_company
     )
+    #Insertar los permisos
     user.save()
+    user.user_permissions.set([48,49,53])
     response = {'message': 'El usuario se creó correctamente!','data': data, 'id':id_company}
     return JsonResponse(response, status=200)
 

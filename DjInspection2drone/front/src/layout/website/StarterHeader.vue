@@ -100,7 +100,7 @@
           </a>
         </li>
         <li class="nav-item d-none d-lg-block ml-lg-4">
-          <router-link class="btn btn-neutral btn-icon" :to="{name:'register'}" v-if="logged">
+          <router-link class="btn btn-neutral btn-icon" :to="{name:'register'}">
             <span class="btn-inner--icon" style="color:#66615B;">
               <i class="fa fa-credit-card-alt mr-2" aria-hidden="true"></i>
             </span>

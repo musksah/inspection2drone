@@ -9,3 +9,6 @@ Plata:$ 6660000  $ 2220000
 Oro:$ 18386400   $ 3260000 
 Platino:$ 48600000  $ 4500000 
 
+prueba de pago payu:
+?merchantId=508029&merchant_name=Test%20PayU%20Test%20comercio&merchant_address=Av%20123%20Calle%2012&telephone=7512354&merchant_url=http%3A%2F%2Fpruebaslapv.xtrweb.com&transactionState=4&lapTransactionState=APPROVED&message=APPROVED&referenceCode=P10521202236421263&reference_pol=120098832&transactionId=d9a2e464-06bd-4e89-bdf7-b2aeda25c3ed&description=Pago%20de%20Planes&trazabilityCode=516864&cus=516864&orderLanguage=es&extra1=&extra2=&extra3=&polTransactionState=4&signature=9e5345ed0afb754ef9e579be9c955b09&polResponseCode=1&lapResponseCode=APPROVED&risk=&polPaymentMethod=10&lapPaymentMethod=VISA&polPaymentMethodType=2&lapPaymentMethodType=CREDIT_CARD&installmentsNumber=1&TX_VALUE=3260000.00&TX_TAX=.00&currency=COP&lng=es&pseCycle=&buyerEmail=santi%40gm.com&pseBank=&pseReference1=&pseReference2=&pseReference3=&authorizationCode=RBM054&TX_ADMINISTRATIVE_FEE=.00&TX_TAX_ADMINISTRATIVE_FEE=.00&TX_TAX_ADMINISTRATIVE_FEE_RETURN_BASE=.00&processingDate=2020-05-21
+

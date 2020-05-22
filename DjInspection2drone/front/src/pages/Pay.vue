@@ -3,7 +3,7 @@
     <m-header></m-header>
     <b-container style="margin-bottom:2rem;margin-top:7rem;">
       <div class="row">
-        <div class="col-md-12" style="margin-top:1rem;">
+        <div class="col-md-12" style="margin-top:0.3rem;">
           <h3 class="pricing-table-title text-center" style="color:#454545;font-size:2em !important;margin-bottom:0.5em;">Resumen de la compra</h3>
           <p class="text-center" style="margin-bottom:0;">Has elegido el plan {{ plan.name }}, revisa las características de tu plan y sigue con el proceso de compra</p>
         </div>
@@ -97,11 +97,6 @@ export default {
         users:0,
         backgroundcolor:"#FA4343"
       },
-      credentials:{
-        username:"",
-        password:""
-      },
-      logged:false
     };
   },
   components: {
@@ -112,18 +107,13 @@ export default {
     this.base_instance_axios = this.$store.getters.getBaseInstanceAxios;
   },
   mounted() {
-    this.checkLoggedIn();
     this.plan = this.$route.params.plan;
-    this.credentials = this.$route.params.credentials;
     console.log("Mounted");
     console.log(this.plan);
     console.log(this.credentials);
     // console.log(this.credentials.username);
     // console.log(this.credentials.password);
     this.getPayUInformation();
-    if(!this.logged){
-      this.Login();
-    }
   },
   methods: {
     getPayUInformation() {
@@ -137,6 +127,11 @@ export default {
         .then(res => {
           console.log(res);
           this.payUParams = res.data.data_pay_u;
+          this.$store.commit("updatePlan", this.plan.id);
+          console.log("Store plan_id");
+          
+          console.log(this.$store.state.plan_tranc_id);
+          
         })
         .catch(e => {
           this.loading = false;
@@ -144,57 +139,10 @@ export default {
             type: "error",
             icon: "error",
             title: "Error",
-            text: "El usaurio no puedo ser creado",
+            text: "Los datos del pago no pudieron ser traídos",
             timer: 3000
           });
         });
-    },
-    Login() {
-      // checking if the input is valid
-      // this.loading = true;
-      this.$store
-        .dispatch("obtainToken", {
-          username: this.credentials.username,
-          password: this.credentials.password
-        })
-        .then(response => {
-          this.$store.commit("updateToken", response.data.token);
-          this.$store.commit("updateUsername", this.credentials.username);
-          this.getPermissions()
-            .then(res => {
-              this.$store.commit("storePermissions", res.data);
-            })
-            .catch(e => {
-              this.loading = false;
-              swal({
-                type: "error",
-                icon: "error",
-                title: "Error",
-                text: "El usuaurio no pudo ser creado",
-                timer: 3000
-              });
-            });
-        })
-        .catch(error => {
-          this.loading = false;
-          this.fail_login = true;
-          setTimeout(() => (this.fail_login = false), 3000);
-        });
-    },
-    getPermissions() {
-      const axiosInstance = axios.create(
-        this.$store.getters.getBaseInstanceAxios
-      );
-      return axiosInstance({
-        url: "/permissions/",
-        method: "get",
-        params: {}
-      });
-    },
-    checkLoggedIn() {
-      if (this.$store.state.jwt != null) {
-        this.logged = true;
-      }
     },
   }
 };
