@@ -8,20 +8,32 @@
           :columnDefs="columnDefs"
           :rowData="rowData"
           :context="context"
-          :frameworkComponents="frameworkComponents"
           pagination="true"
         ></ag-grid-vue>
       </div>
     </div>
     <b-button v-b-modal.modal-1>Registrar Usuario</b-button>
     <b-modal id="modal-1" title="Registrar Usuario">
-      <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-        <b-form-group
-          id="input-group-1"
-          label="Email address:"
-          label-for="input-1"
-          description="We'll never share your email with anyone else."
-        >
+      <b-form @submit.prevent="onSubmit" @reset="register" v-if="show">
+        <b-form-group id="first_name-group" label="Nombre:" label-for="first_name">
+          <b-form-input
+            id="first_name"
+            v-model="form.first_name"
+            type="text"
+            required
+            placeholder="Ingresar nombre"
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group id="last_name-group" label="Apellido:" label-for="last_name">
+          <b-form-input
+            id="last_name"
+            v-model="form.last_name"
+            type="text"
+            required
+            placeholder="Ingresar apellido"
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group id="input-group-1" label="Email address:" label-for="input-1">
           <b-form-input
             id="input-1"
             v-model="form.email"
@@ -30,16 +42,28 @@
             placeholder="Enter email"
           ></b-form-input>
         </b-form-group>
-
-        <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
-          <b-form-input id="input-2" v-model="form.name" required placeholder="Enter name"></b-form-input>
+        <b-form-group
+          id="password-group"
+          label="Contraseña:"
+          label-for="password"
+          description="La contraseña debe tener mínimo 8 dígitos."
+        >
+          <b-form-input
+            id="input-1"
+            v-model="form.password"
+            type="password"
+            required
+            placeholder="Ingresar contraseña"
+          ></b-form-input>
         </b-form-group>
-
-        <b-form-group id="input-group-3" label="Food:" label-for="input-3">
-          <b-form-select id="input-3" v-model="form.food" required></b-form-select>
+        <b-form-group
+          id="company_id-group"
+          label="Compañía:"
+          label-for="company_id"
+        >
+          <b-form-select v-model="form.company_id" :options="options_company"></b-form-select>
         </b-form-group>
-
-        <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button class="mr-2" type="submit" variant="primary">Registrar</b-button>
         <b-button type="reset" variant="danger">Reset</b-button>
       </b-form>
     </b-modal>
@@ -57,38 +81,50 @@ export default {
       columnDefs: [],
       rowData: [],
       form: {
+        first_name:"",
+        last_name:"",
         email: "",
-        name: "",
-        food: null,
-        checked: []
+        password: "",
+        company_id:null,
       },
-      frameworkComponents:null,
-      context:null,
-      show: true
+      frameworkComponents: null,
+      context: null,
+      show: true,
+      options_company: [{ value: null, text: "seleccionar..." }],
     };
   },
   components: {
     AgGridVue
   },
   beforeMount() {
-    this.base_instance_axios = this.$store.getters.getBaseInstanceAxios
+    this.base_instance_axios = this.$store.getters.getBaseInstanceAxios;
     this.context = { componentParent: this };
-    this.frameworkComponents = {
-      squareRenderer: SquareRenderer,
-      cubeRenderer: CubeRenderer,
-      paramsRenderer: ParamsRenderer,
-      currencyRenderer: CurrencyRenderer,
-      childMessageRenderer: ChildMessageRenderer,
-    };
-    
   },
   mounted() {
     this.getList();
+    this.getCompanies();
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault();
+    register(evt) {
       alert(JSON.stringify(this.form));
+      // const axiosInstance = axios.create(this.base_instance_axios);
+      // axiosInstance({
+      //   url: "/users/list/",
+      //   method: "get",
+      //   params: {}
+      // })
+      //   .then(res => {
+      //   })
+      //   .catch(e => {
+      //     this.loading = false;
+      //     swal({
+      //       type: "error",
+      //       icon: "error",
+      //       title: "Error",
+      //       text: "El usaurio no puedo ser creado",
+      //       timer: 3000
+      //     });
+      //   });
     },
     onReset(evt) {
       evt.preventDefault();
@@ -106,7 +142,6 @@ export default {
     getList() {
       this.columnDefs = [];
       this.rowData = [];
-
       const axiosInstance = axios.create(this.base_instance_axios);
       axiosInstance({
         url: "/users/list/",
@@ -114,12 +149,19 @@ export default {
         params: {}
       })
         .then(res => {
-          let fields_excluded = ['password','is_superuser','last_login','is_staff','is_active','user_permissions']
+          let fields_excluded = [
+            "password",
+            "is_superuser",
+            "last_login",
+            "is_staff",
+            "is_active",
+            "user_permissions"
+          ];
           // console.log(res);
           // debugger
           res.data.forEach(item => {
             Object.keys(item).forEach(key => {
-              if(!fields_excluded.includes(key)){
+              if (!fields_excluded.includes(key)) {
                 this.columnDefs.push({ headerName: key, field: key });
               }
             });
@@ -130,7 +172,7 @@ export default {
               first_name: item.first_name,
               last_name: item.last_name,
               email: item.email,
-              company: item.company,
+              company: item.company
             });
           });
         })
@@ -141,6 +183,38 @@ export default {
             icon: "error",
             title: "Error",
             text: "El usaurio no puedo ser creado",
+            timer: 3000
+          });
+        });
+    },
+    getCompanies() {
+      const axiosInstance = axios.create(this.base_instance_axios);
+      axiosInstance({
+        url: "/companies/",
+        method: "get",
+        params: {}
+      })
+        .then(res => {
+          let fields_excluded = [
+            "password",
+            "is_superuser",
+            "last_login",
+            "is_staff",
+            "is_active",
+            "user_permissions"
+          ];
+          console.log(res);
+          res.data.forEach(item => {
+            this.options_company.push({ value: item.id, text: item.name });
+          });
+        })
+        .catch(e => {
+          this.loading = false;
+          swal({
+            type: "error",
+            icon: "error",
+            title: "Error",
+            text: "No se pudieron traer las compañías",
             timer: 3000
           });
         });
