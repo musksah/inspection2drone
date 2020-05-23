@@ -1,5 +1,4 @@
-import datetime
-import hashlib
+import json, hashlib, datetime
 from plan.models import Plan
 from django.shortcuts import render
 from rest_framework.views import APIView
@@ -9,7 +8,7 @@ from DjInspection2drone import settings
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
-import json
+
 
 
 class TransactionView(APIView):

@@ -1,4 +1,5 @@
 
+import json
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
 from rest_framework import viewsets
 from django.contrib.auth import authenticate, login, logout
@@ -24,9 +25,34 @@ from .permissions import IsAuthorized
 class UsersView(APIView):
     permission_classes = (IsAuthenticated, IsAuthorized,)
     def get(self, request, format=None):
-        users = User.objects.all()
+        users = User.objects.all().order_by('-id')
         serializer = UserSerializer(users, many=True)
         return JsonResponse(serializer.data, safe=False)
+    
+    def post(self, request, format=None):
+        data_response = request.query_params
+        first_name = data_response['first_name'] 
+        last_name = data_response['last_name'] 
+        email = data_response['email'] 
+        username = data_response['username'] 
+        password = data_response['password'] 
+        company_id = data_response['company_id'] 
+        profile_id = data_response['profile_id'] 
+        user = User.objects.create_user(
+            first_name = first_name,
+            last_name = last_name,
+            email = email,
+            password = password,
+            username = username,
+            company_id = company_id,
+        )
+        user.save()
+        admin_permissions = [40,32,36,57,61]
+        operator_permissions = [45,62,53]
+        client_permissions = [48,49,53]
+        permissions_list = {'1':admin_permissions,'2':operator_permissions,'3':client_permissions}
+        user.user_permissions.set(permissions_list[profile_id])
+        return JsonResponse({'response':'Usuario creado correctamente!'},safe=False)
 
 
 class PermissionViewSet(viewsets.ModelViewSet):
