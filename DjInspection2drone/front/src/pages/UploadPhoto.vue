@@ -51,13 +51,13 @@ export default {
       company: "",
       selected: null,
       options: [{ value: null, text: "seleccionar..." }],
-      options_inspection: [{ value: null, text: "seleccionar..." },{ value: 1, text: "06/04/20" }],
-      options_drone: [{ value: null, text: "seleccionar..." },,{ value: 1, text: "Mavic Phantom 4 RTK" }],
+      options_inspection: [{ value: null, text: "seleccionar..." }],
+      options_drone: [{ value: null, text: "seleccionar..." }],
       form: {
         drone_id: null,
         inspection_id: null,
         file: null
-      }
+      },
     };
   },
   beforeMount() {
@@ -65,6 +65,8 @@ export default {
   },
   mounted() {
     this.loadSelectCompany();
+    this.getInspections();
+    this.getDrones();
   },
   methods: {
     loadSelectCompany() {
@@ -136,7 +138,53 @@ export default {
     },
     handleFileUpload(event) {
       this.form.file = event.target.files[0]
-    }
+    },
+    getInspections() {
+      const axiosInstance = axios.create(this.base_instance_axios);
+      axiosInstance({
+        url: "inspection/list/",
+        method: "get",
+        params: {}
+      })
+        .then(res => {
+          console.log(res);
+          res.data.forEach(item => {
+            this.options_inspection.push({ value: item.id, text: item.agreed_date });
+          });
+        })
+        .catch(e => {
+          swal({
+            type: "error",
+            icon: "error",
+            title: "Error",
+            text: "No se pudieron traer las inspecciones",
+            timer: 3000
+          });
+        });
+    },
+    getDrones() {
+      const axiosInstance = axios.create(this.base_instance_axios);
+      axiosInstance({
+        url: "drone/list/",
+        method: "get",
+        params: {}
+      })
+        .then(res => {
+          console.log(res);
+          res.data.forEach(item => {
+            this.options_drone.push({ value: item.id, text: item.brand });
+          });
+        })
+        .catch(e => {
+          swal({
+            type: "error",
+            icon: "error",
+            title: "Error",
+            text: "No se pudieron traer las inspecciones",
+            timer: 3000
+          });
+        });
+    },
   }
 };
 </script>

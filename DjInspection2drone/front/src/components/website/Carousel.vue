@@ -16,7 +16,7 @@
       <!-- Text slides with image -->
       <b-carousel-slide
         caption="Inspección de Obras"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
+        text="Servicios de inspección de obra de alta calidad"
       >
         <template v-slot:img>
           <img
@@ -32,7 +32,7 @@
       <!-- Slides with custom text -->
       <b-carousel-slide
         caption="Inspección de Obras"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
+        text="Servicios de inspección de obra de alta calidad"
       >
         <template v-slot:img>
           <img
@@ -48,7 +48,7 @@
       <!-- Slides with image only -->
       <b-carousel-slide
         caption="Inspección de Obras"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
+        text="Servicios de inspección de obra de alta calidad"
       >
         <template v-slot:img>
           <img
@@ -65,7 +65,7 @@
       <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
       <b-carousel-slide
         caption="Inspección de Obras"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
+        text="Servicios de inspección de obra de alta calidad"
       >
         <template v-slot:img>
           <img
@@ -81,7 +81,7 @@
       <!-- Slide with blank fluid image to maintain slide aspect ratio -->
       <b-carousel-slide
         caption="Inspección de Obras"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
+        text="Servicios de inspección de obra de alta calidad"
       >
         <template v-slot:img>
           <img
